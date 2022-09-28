@@ -45,12 +45,12 @@ transport company web management
 Компания ведет складской учет грузов, финансовый учет задолженностей перед заказчиками и субподрядчиками. В качестве субподрядчиков выступают сторонние ТК и внутренние работники/сотрудники компании.
 
 
-
 ## Для установки:
 * Установить python 3.10.4
 * Установить виртуальное окружение `python3 -m venv venv`
 * Активировать виртуальное окружение `source venv/bin/activate`
-* Для кстановки необходимых пакетов командной строке `pip install -r requirements.txt`
+* Для установки необходимых пакетов в командной строке `pip install -r requirements.txt`
 
-## Для запуская:
-* Для запуска `flask --app flaskr --debug run`
+## Для запуска:
+* Активировать виртуальное окружение `source venv/bin/activate`
+* Для запуска `flask --app flaskr --debug run` или `export FLASK_APP=flaskr && FLASK_ENV=development && flask --debug run`

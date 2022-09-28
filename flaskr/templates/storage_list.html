@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+storage_list
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <a href="{{ url_for('storage') }}">add new storage</a>
+    {% for storage in storages %}
+    <div class="row">
+        <div class="col-8">
+            {{ storage.title }}
+        </div>
+
+        <div class="col-4">
+            {{ storage.inn }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

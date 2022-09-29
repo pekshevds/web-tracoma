@@ -10,7 +10,7 @@ from flaskr.views import get_home_view, get_about_view, get_storages_view, \
 db = SQLAlchemy()
 
 
-def navigation_roates(app):
+def navigation_routes(app):
     @app.route('/')
     @app.route('/index')
     def home():
@@ -27,7 +27,7 @@ def navigation_roates(app):
         return get_storages_view()
 
 
-def storage_roates(app):
+def storage_routes(app):
     @app.route('/new-storage')
     def new_storage():
         return get_new_storage_view()
@@ -60,7 +60,7 @@ def create_app():
 
     db.init_app(app)
 
-    navigation_roates(app)
-    storage_roates(app)
+    navigation_routes(app)
+    storage_routes(app)
     
     return app

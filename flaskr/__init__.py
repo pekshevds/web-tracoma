@@ -1,7 +1,8 @@
 from flask import Flask
-from flask import render_template, request
-from flaskr.models import db
-from flaskr.db import get_storages, add_storage, update_storage
+from flask import render_template, request, redirect, url_for
+from flaskr.models import Storage, db
+from db import delete_storage_by_id, get_storages, add_storage, \
+    update_storage, get_storage_by_id
 
 
 def create_app():
@@ -19,20 +20,32 @@ def create_app():
     def about():
         return render_template('about.html')
 
-    @app.route('/storage', methods=['GET', 'POST'])
-    def storage():
-        if request.method == 'GET':
-            return render_template('storage_item.html')
 
-        id = int(request.values.get('id', 0))
+    @app.route('/new-storage')
+    def new_storage():
+        return render_template('storage_item.html', storage=None)
+
+    @app.route('/delete-storage/<int:storage_id>')
+    def delete_storage(storage_id):        
+        delete_storage_by_id(app, storage_id)
+        return redirect(url_for('storages'))
+
+    @app.route('/storage/<int:storage_id>')
+    def show_storage(storage_id):        
+        return render_template('storage_item.html', storage=get_storage_by_id(storage_id))
+
+    @app.route('/save_storage', methods=['POST', 'PUT'])
+    def save_storage():
+        
+        id = request.values.get('id', '')
         title = request.values.get('title', '')
         inn = request.values.get('inn', '')
-        if id == 0:
-            add_storage(title=title)
+        if id == '':
+            add_storage(app, title=title, inn=inn)
         else:
-            update_storage(id, title=title)    
+            update_storage(app, int(id), title=title, inn=inn)
 
-        return render_template('storage_item.html')
+        return redirect(url_for('storages'))
 
     @app.route('/storages')
     def storages():

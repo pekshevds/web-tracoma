@@ -9,15 +9,23 @@ storage_list
 {% block content %}
 
 <div class="container">
-    <a href="{{ url_for('storage') }}">add new storage</a>
+    <a href="{{ url_for('new_storage') }}">add new storage</a>
     {% for storage in storages %}
     <div class="row">
-        <div class="col-8">
+
+        <div class="col-1">
+            <a href="{{ url_for('show_storage', storage_id=storage.id) }}">{{ storage.id }}</a>
+        </div>
+
+        <div class="col-6">
             {{ storage.title }}
         </div>
 
         <div class="col-4">
             {{ storage.inn }}
+        </div>
+        <div class="col-1">
+            <a href="{{ url_for('delete_storage', storage_id=storage.id) }}">x</a>
         </div>
     </div>
     {% endfor %}

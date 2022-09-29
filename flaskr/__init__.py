@@ -1,17 +1,12 @@
 from flask import Flask
+import os
 from flask import render_template, request, redirect, url_for
 from flaskr.models import Storage, db
 from db import delete_storage_by_id, get_storages, add_storage, \
     update_storage, get_storage_by_id
 
 
-def create_app():
-    app = Flask(__name__, static_url_path='/static')
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlite.db'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-    db.init_app(app)
-
+def navigation_roates(app):
     @app.route('/')
     def home():
         return render_template('index.html')
@@ -20,7 +15,11 @@ def create_app():
     def about():
         return render_template('about.html')
 
+    @app.route('/storages')
+    def storages():
+        return render_template('storage_list.html', storages=get_storages())
 
+def storage_roates(app):
     @app.route('/new-storage')
     def new_storage():
         return render_template('storage_item.html', storage=None)
@@ -47,9 +46,15 @@ def create_app():
 
         return redirect(url_for('storages'))
 
-    @app.route('/storages')
-    def storages():
-        return render_template('storage_list.html', storages=get_storages())        
+def create_app():
+    
+    app = Flask(__name__, static_url_path='/static')
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.abspath('db.sqlite3')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+    db.init_app(app)
+
+    navigation_roates(app)
+    storage_roates(app)
     
     return app

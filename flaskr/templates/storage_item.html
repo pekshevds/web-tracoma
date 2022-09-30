@@ -8,15 +8,26 @@ title
 
 {% block content %}
 <div class="container">
+    {% if storage %}
+    <h1>{{ storage.title }}</h1>
+    {% else %}
+    <h1>New storage</h1>
+    {% endif %}
     <form action="{{ url_for('save_storage') }}" method="post">
         <div class="row">            
             
+            <div class="input-group input-group-sm mb-3 visually-hidden">
+                <span class="input-group-text" id="inputGroup-sizing-sm">is_company</span>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm" name="type" value="{% if is_company %}2{% else %}1{% endif %}">
+            </div>
+
             {% if storage %}
             <div class="input-group input-group-sm mb-3 visually-hidden">
-                <span class="input-group-text" id="inputGroup-sizing-sm">title</span>
+                <span class="input-group-text" id="inputGroup-sizing-sm">id</span>
                 <input type="text" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-sm" name="id" value="{{ storage.id }}">
-            </div>
+            </div>  
 
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">title</span>
@@ -29,11 +40,44 @@ title
                 <input type="text" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-sm" name="inn" value="{{ storage.inn }}">
             </div>
+
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">kpp</span>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm" name="kpp" value="{{ storage.kpp }}">
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="is_internal" {% if storage.is_internal %} checked {% endif %} id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    internal
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="is_employee" {% if storage.is_employee %} checked {% endif %} id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    employee
+                </label>
+            </div>
+
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">weight</span>
+                <input type="number" step="0.001" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm" name="weight" value="{{ storage.weight }}">
+            </div>
+
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">volume</span>
+                <input type="number" step="0.00001" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm" name="volume" value="{{ storage.volume }}">
+            </div>
+
             {% else %}            
             <div class="input-group input-group-sm mb-3 visually-hidden">
-                <span class="input-group-text" id="inputGroup-sizing-sm">title</span>
+                <span class="input-group-text" id="inputGroup-sizing-sm">id</span>
                 <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="id" >                
+                    aria-describedby="inputGroup-sizing-sm" name="id">                
             </div>
 
             <div class="input-group input-group-sm mb-3">
@@ -47,6 +91,39 @@ title
                 <input type="text" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-sm" name="inn">
             </div>
+
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">kpp</span>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm" name="kpp">
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="is_internal" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    internal
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="is_employee" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    employee
+                </label>
+            </div>
+
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">weight</span>
+                <input type="number" step="0.001" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm" name="weight">
+            </div>
+
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">volume</span>
+                <input type="number" step="0.00001" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm" name="volume">
+            </div>
+
             {% endif %}
             <div class="input-group input-group-sm mb-3">
                 <input class="btn btn-primary" type="submit" value="Submit">

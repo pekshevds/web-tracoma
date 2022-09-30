@@ -9,7 +9,27 @@ storage_list
 {% block content %}
 
 <div class="container">
-    <a href="{{ url_for('new_storage') }}">add new storage</a>
+    <h1>Storages</h1>
+    
+    <div class="row">
+        <div class="col-4">
+            <a href="{{ url_for('storages') }}">all storages</a>
+        </div>
+
+        <div class="col-4">
+            <a href="{{ url_for('storages_by_type', storage_type=2) }}">companies</a>
+        </div>
+
+        <div class="col-4">
+            <a href="{{ url_for('storages_by_type', storage_type=1) }}">individuals</a>
+        </div>        
+    </div>
+
+    <div class="row">
+        <a href="{{ url_for('new_storage') }}">new storage</a>
+    </div>
+    
+    
     {% for storage in storages %}
     <div class="row">
 
@@ -18,11 +38,17 @@ storage_list
         </div>
 
         <div class="col-6">
-            {{ storage.title }}
+            <a href="{{ url_for('show_storage', storage_id=storage.id) }}">{{ storage.title }}</a>
         </div>
 
-        <div class="col-4">
+        <div class="col-2">
             {{ storage.inn }}
+        </div>
+        <div class="col-1">
+            {{ storage.is_internal }}
+        </div>
+        <div class="col-1">
+            {{ storage.is_employee }}
         </div>
         <div class="col-1">
             <a href="{{ url_for('delete_storage', storage_id=storage.id) }}">x</a>

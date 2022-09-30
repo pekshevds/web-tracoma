@@ -24,7 +24,12 @@ def navigation_routes(app):
 
     @app.route('/storages')
     def storages():
-        return get_storages_view()
+        return get_storages_view(storage_type=None)
+        
+    @app.route('/storages/type')
+    @app.route('/storages/type/<int:storage_type>')
+    def storages_by_type(storage_type=None):
+        return get_storages_view(storage_type)
 
 
 def storage_routes(app):
@@ -34,22 +39,55 @@ def storage_routes(app):
 
 
     @app.route('/delete-storage/<int:storage_id>')
-    def delete_storage(storage_id):        
-        return get_storeges_after_deleting_by_id(storage_id)
+    def delete_storage(storage_id):
+        return get_storeges_after_deleting_by_id(storage_id=storage_id)
 
 
     @app.route('/storage/<int:storage_id>')
-    def show_storage(storage_id):        
+    def show_storage(storage_id):
         return get_storage_view(storage_id)
 
 
     @app.route('/save_storage', methods=['POST', 'PUT'])
-    def save_storage():
+    def save_storage():        
         
-        id = request.values.get('id', '')
+        try:
+            id = int(request.values.get('id', '0'))
+        except:
+            id = 0
         title = request.values.get('title', '')
         inn = request.values.get('inn', '')
-        return get_storeges_after_create_update_by_id(storage_id=id, title=title, inn=inn)
+        
+        is_internal = request.values.get('is_internal')        
+        if is_internal:
+            is_internal = bool(is_internal)
+        else:
+            is_internal = False
+
+        is_employee = request.values.get('is_employee')
+        if is_employee:
+            is_employee = bool(is_employee)
+        else:
+            is_employee = False
+
+        kpp = request.values.get('kpp', '')
+
+        try:
+            weight = request.values.get('weight', '0')
+        except:
+            weight = 0
+        try:
+            volume = request.values.get('volume', '0')
+        except:
+            volume = 0
+        
+        try:
+            type = int(request.values.get('type', '1'))
+        except:
+            type = 1
+        return get_storeges_after_create_update_by_id(storage_id=id, title=title, inn=inn, \
+            is_internal=is_internal, is_employee=is_employee, kpp=kpp, weight=weight,\
+                volume=volume, type=type)
 
 
 def create_app():

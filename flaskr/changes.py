@@ -14,9 +14,9 @@ def delete_storage_by_id(id: int) -> bool:
 def add_storage(title: str='', inn: str='', \
                 is_internal: bool=False, is_employee: bool=False, \
                 kpp: str='', weight: float=.0, volume: float=.0, \
-                type: int=1) -> bool:
+                kind: int=1) -> bool:
     try:
-        storage = Storage(title=title, inn=inn, type=type, \
+        storage = Storage(title=title, inn=inn, kind=kind, \
                             is_internal=is_internal, is_employee=is_employee, \
                             kpp=kpp, weight=weight, volume=volume)
         db.session.add(storage)
@@ -29,7 +29,7 @@ def add_storage(title: str='', inn: str='', \
 def update_storage(id: int, title: str='', inn: str='', \
                     is_internal: bool=False, is_employee: bool=False, \
                     kpp: str='', weight: float=.0, volume: float=.0, \
-                    type: int=1) -> bool:
+                    kind: int=1) -> bool:
     try:        
         storage = Storage.query.get(id)
         storage.title = title
@@ -39,7 +39,7 @@ def update_storage(id: int, title: str='', inn: str='', \
         storage.kpp = kpp
         storage.weight = weight
         storage.volume = volume
-        storage.type = type
+        storage.kind = kind
         db.session.add(storage)
         db.session.commit()
     except:

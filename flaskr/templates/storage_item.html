@@ -19,7 +19,7 @@ title
             <div class="input-group input-group-sm mb-3 visually-hidden">
                 <span class="input-group-text" id="inputGroup-sizing-sm">is_company</span>
                 <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="type" value="{% if is_company %}2{% else %}1{% endif %}">
+                    aria-describedby="inputGroup-sizing-sm" name="kind" value="{{ storage_kind }}">
             </div>
 
             {% if storage %}

@@ -1,9 +1,9 @@
 from flaskr.models import Storage
 
 
-def get_storages(storage_type=None) -> list:
-    if storage_type:
-        return Storage.query.filter_by(type=storage_type).all()
+def get_storages(storage_kind=None) -> list:
+    if storage_kind:
+        return Storage.query.filter_by(kind=storage_kind).all()
     else:
         return Storage.query.all()
     

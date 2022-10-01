@@ -9,7 +9,7 @@ class Storage(db.Model):
     title = db.Column(db.String(150), nullable=False)
     is_internal = db.Column(db.Boolean)
     is_employee = db.Column(db.Boolean)
-    type = db.Column(db.Integer, nullable=False)
+    kind = db.Column(db.Integer, nullable=False)
     inn = db.Column(db.String(13))
     kpp = db.Column(db.String(10))
     weight = db.Column(db.Float)

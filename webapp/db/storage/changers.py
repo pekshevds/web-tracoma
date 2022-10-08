@@ -1,5 +1,6 @@
 from webapp.db.models import Storage, db
 from webapp.db.storage.fetchers import get_storage_by_id
+from sqlalchemy.exc import SQLAlchemyError
 
 
 def update_or_create_storage(storage_id: int, **kwargs):
@@ -13,7 +14,7 @@ def update_or_create_storage(storage_id: int, **kwargs):
     try:
         db.session.add(storage)
         db.session.commit()
-    except :
+    except SQLAlchemyError:
         return False
     return True
 
@@ -25,6 +26,6 @@ def delete_storage(storage_id: int):
         try:
             db.session.add(storage)
             db.session.commit()
-        except :
+        except SQLAlchemyError:
             return False
     return True

@@ -19,10 +19,12 @@ def new_point_view():
 
 def save_point_view():
     id, title, short = prepare_point_values(request.values)    
-    update_or_create_point(point_id=id, title=title, short=short)
-    return redirect(url_for('points'))
+    if update_or_create_point(point_id=id, title=title, short=short):
+        return redirect(url_for('points'))
+    return render_template("crud_error.html", content='error on create or update point info')
 
 
 def delete_point_view(point_id: int):    
-    delete_point(point_id=point_id)
-    return redirect(url_for('points'))
+    if delete_point(point_id=point_id):
+        return redirect(url_for('points'))
+    return render_template("crud_error.html", content='error on mark point for deleting')

@@ -1,5 +1,6 @@
 from webapp.db.models import Point, db
 from webapp.db.point.fetchers import get_point_by_id
+from sqlalchemy.exc import SQLAlchemyError
 
 
 def update_or_create_point(point_id: int, **kwargs):
@@ -13,7 +14,7 @@ def update_or_create_point(point_id: int, **kwargs):
     try:
         db.session.add(point)
         db.session.commit()
-    except :
+    except SQLAlchemyError:
         return False
     return True
 
@@ -25,6 +26,6 @@ def delete_point(point_id: int):
         try:
             db.session.add(point)
             db.session.commit()
-        except :
+        except SQLAlchemyError:
             return False
     return True

@@ -14,7 +14,7 @@ def storages_by_kind_view(storage_kind: int):
 
 
 def storage_view(storage_id: int):
-    return render_template('storage_item.html', storage=get_storage_by_id(storage_id=storage_id))
+    return render_template('storage_item.html', storage=get_storage_by_id(id=storage_id))
 
 
 def new_storage_view(storage_kind: int):
@@ -23,13 +23,13 @@ def new_storage_view(storage_kind: int):
 
 def save_storage_view():    
     id, title, inn, kpp, is_internal, is_employee, kind, weight, volume = prepare_storage_values(request.values)
-    if update_or_create_storage(storage_id=id, title=title, kind=kind, inn=inn, kpp=kpp, is_internal=is_internal,\
+    if update_or_create_storage(id=id, title=title, kind=kind, inn=inn, kpp=kpp, is_internal=is_internal,\
         is_employee=is_employee, weight=weight, volume=volume):
         return redirect(url_for('storages'))
     return render_template("crud_error.html", content='error on create or update storage info')
 
 
 def delete_storage_view(storage_id: int):    
-    if delete_storage(storage_id=storage_id):
+    if delete_storage(id=storage_id):
         return redirect(url_for('storages'))
     return render_template("crud_error.html", content='error on mark storage for deleting')

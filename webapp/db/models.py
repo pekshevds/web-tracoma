@@ -1,15 +1,16 @@
-from email.policy import default
 from flask_sqlalchemy import SQLAlchemy
 
 
 db = SQLAlchemy()
 
-
-class Storage(db.Model):
+class Directory(object):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150), nullable=False)
-    is_mark = db.Column(db.Boolean, default=False)
+    is_deleted = db.Column(db.Boolean, default=False)
 
+
+class Storage(db.Model, Directory):
+    
     is_internal = db.Column(db.Boolean, default=False)
     is_employee = db.Column(db.Boolean, default=False)
     kind = db.Column(db.Integer, nullable=False)
@@ -22,11 +23,8 @@ class Storage(db.Model):
         return self.title
 
 
-class Point(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(150), nullable=False)
-    is_mark = db.Column(db.Boolean, default=False)
-
+class Point(db.Model, Directory):
+    
     short = db.Column(db.String(10))
     
     def __str__(self) -> str:

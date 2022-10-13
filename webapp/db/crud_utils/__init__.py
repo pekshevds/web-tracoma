@@ -1,15 +1,15 @@
 from sqlalchemy.exc import SQLAlchemyError
 
 
-def update_or_create_item(id: int, db, get_func, Object, **kwargs):
+def update_or_create_item(id: int, db, get_func, object, **kwargs):
     item = get_func(id=id)
     if not item:
-        item = Object()
+        item = object()
 
-    for key, value in kwargs.items():
+    for key, value in kwargs.items():        
         if hasattr(item, key):
-            setattr(item, key, value)
-
+            setattr(item, key, value)    
+    
     db.session.add(item)
     try:        
         db.session.commit()

@@ -15,6 +15,9 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + abspath('db.sqlite3')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+    app.config['CSRF_ENABLED'] = True
+    app.config['SECRET_KEY'] = "test_secret_key"
+
     db.init_app(app)
 
     app.add_url_rule("/", endpoint="home", view_func=home_view)
@@ -27,13 +30,13 @@ def create_app():
     app.add_url_rule("/storages/show/<int:storage_id>", endpoint="show_storage", view_func=storage_view)
     app.add_url_rule("/storages/new/<int:storage_kind>", endpoint="new_storage", view_func=new_storage_view)
     app.add_url_rule("/storages/delete/<int:storage_id>", endpoint="delete_storage", view_func=delete_storage_view)
-    app.add_url_rule("/storages/save", endpoint="save_storage", view_func=save_storage_view, methods=['POST', 'PUT'])
+    app.add_url_rule("/storages/save", endpoint="save_storage", view_func=save_storage_view, methods=['POST'])
     
     #POINTS
     app.add_url_rule("/points", endpoint="points", view_func=points_view)
     app.add_url_rule("/points/show/<int:point_id>", endpoint="show_point", view_func=point_view)
     app.add_url_rule("/points/new", endpoint="new_point", view_func=new_point_view)
     app.add_url_rule("/points/delete/<int:point_id>", endpoint="delete_point", view_func=delete_point_view)
-    app.add_url_rule("/points/save", endpoint="save_point", view_func=save_point_view, methods=['POST', 'PUT'])
+    app.add_url_rule("/points/save", endpoint="save_point", view_func=save_point_view, methods=['POST'])
             
     return app

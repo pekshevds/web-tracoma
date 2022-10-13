@@ -6,7 +6,7 @@ from webapp.db.crud_utils import update_or_create_item, delete_item
 
 
 def update_or_create_point(id: int, **kwargs):
-    return update_or_create_item(id=id, db=db, get_func=get_point_by_id, Object=Point, kwargs=kwargs)
+    return update_or_create_item(id=id, db=db, get_func=get_point_by_id, object=Point, **kwargs)
 
 
 def delete_point(id: int):

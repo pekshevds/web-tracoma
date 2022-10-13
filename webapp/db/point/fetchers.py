@@ -5,5 +5,7 @@ def get_points():
 
 
 def get_point_by_id(id: int):
-    return Point.query.get(id)
-    
+    try:
+        return Point.query.get(id)
+    except:
+        return None

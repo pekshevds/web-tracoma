@@ -6,7 +6,7 @@ from webapp.db.crud_utils import update_or_create_item, delete_item
 
 
 def update_or_create_storage(id: int, **kwargs):
-    return update_or_create_item(id=id, db=db, get_func=get_storage_by_id, Object=Storage, kwargs=kwargs)
+    return update_or_create_item(id=id, db=db, get_func=get_storage_by_id, object=Storage, **kwargs)
 
 
 def delete_storage(id: int):

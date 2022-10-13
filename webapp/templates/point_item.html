@@ -8,58 +8,35 @@ web-tracoma/point
 
 {% block content %}
 <div class="container">
-    {% if point %}
-    <h1>{{ point.title }}</h1>
+    {% if form.id.data %}
+    <h1>{{ form.title.data }}</h1>
     {% else %}
     <h1>New point</h1>
     {% endif %}
     <form action="{{ url_for('save_point') }}" method="post">
+        {{ form.csrf_token }}
         <div class="row">            
-                        
-            {% if point %}
+                                   
             <div class="input-group input-group-sm mb-3 visually-hidden">
-                <span class="input-group-text" id="inputGroup-sizing-sm">id</span>
+                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.id.label()}}</span>
                 <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="id" value="{{ point.id }}">
+                    aria-describedby="inputGroup-sizing-sm" name="id" value="{{ form.id.data }}">
             </div>  
 
             <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-sm">title</span>
+                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.title.label() }}</span>
                 <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="title" value="{{ point.title }}">
+                    aria-describedby="inputGroup-sizing-sm" name="title" value="{{ form.title.data }}">
             </div>
 
             <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-sm">short</span>
+                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.short.label() }}</span>
                 <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="short" value="{{ point.short }}">
-            </div>
-
-            
-            {% else %}            
-            <div class="input-group input-group-sm mb-3 visually-hidden">
-                <span class="input-group-text" id="inputGroup-sizing-sm">id</span>
-                <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="id">                
+                    aria-describedby="inputGroup-sizing-sm" name="short" value="{{ form.short.data }}">
             </div>
 
             <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-sm">title</span>
-                <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="title">
-            </div>
-
-            <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-sm">short</span>
-                <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="short">
-            </div>
-
-            
-
-            {% endif %}
-            <div class="input-group input-group-sm mb-3">
-                <input class="btn btn-primary" type="submit" value="Submit">
+                {{ form.submit }}
             </div>    
             
         </div>

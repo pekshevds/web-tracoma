@@ -1,4 +1,4 @@
-from webapp.db.models import Storage
+from webapp.db import Storage
 
 
 def get_storages():

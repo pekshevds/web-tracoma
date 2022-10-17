@@ -1,6 +1,6 @@
 from flask import Flask
 from os.path import abspath
-from webapp.db.models import db
+from webapp.db.common import db
 
 from webapp.views import home_view, about_view
 from webapp.views.point import delete_point_view, points_view, point_view, \

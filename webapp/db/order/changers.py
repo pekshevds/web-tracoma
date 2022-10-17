@@ -1,4 +1,4 @@
-from webapp.db.models import Order
+from webapp.db import Order
 from webapp.db.order.fetchers import get_order_by_id
 from webapp.db.utils.crud_utils import update_or_create_item, delete_item
 

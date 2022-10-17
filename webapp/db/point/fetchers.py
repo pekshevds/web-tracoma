@@ -1,4 +1,4 @@
-from webapp.db.models import Point
+from webapp.db import Point
 
 def get_points():
     return Point.query.filter().all()

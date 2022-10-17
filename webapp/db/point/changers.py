@@ -1,4 +1,4 @@
-from webapp.db.models import Point
+from webapp.db import Point
 from webapp.db.point.fetchers import get_point_by_id
 from webapp.db.utils.crud_utils import update_or_create_item, delete_item
 

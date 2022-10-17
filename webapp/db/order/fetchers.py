@@ -1,4 +1,4 @@
-from webapp.db.models import Order
+from webapp.db import Order
 
 def get_orders():
     return Order.query.filter().all()

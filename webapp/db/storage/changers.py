@@ -1,4 +1,4 @@
-from webapp.db.models import Storage
+from webapp.db import Storage
 from webapp.db.storage.fetchers import get_storage_by_id
 from webapp.db.utils.crud_utils import update_or_create_item, delete_item
 

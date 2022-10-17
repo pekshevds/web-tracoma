@@ -5,6 +5,8 @@ from webapp.db.models import db
 from webapp.views import home_view, about_view
 from webapp.views.point import delete_point_view, points_view, point_view, \
     new_point_view, save_point_view
+from webapp.views.order import delete_order_view, orders_view, order_view, \
+    new_order_view, save_order_view
 from webapp.views.storage import storages_view, storages_by_kind_view, \
     storage_view, new_storage_view, delete_storage_view, save_storage_view
 
@@ -24,6 +26,13 @@ def create_app():
     app.add_url_rule("/home", endpoint="home", view_func=home_view)
     app.add_url_rule("/about", endpoint="about", view_func=about_view)
     
+    #ORDERS
+    app.add_url_rule("/orders", endpoint="orders", view_func=orders_view)
+    app.add_url_rule("/orders/show/<int:order_id>", endpoint="show_order", view_func=order_view)
+    app.add_url_rule("/orders/new", endpoint="new_order", view_func=new_order_view)
+    app.add_url_rule("/orders/delete/<int:order_id>", endpoint="delete_order", view_func=delete_order_view)
+    app.add_url_rule("/orders/save", endpoint="save_order", view_func=save_order_view, methods=['POST'])
+
     #STORAGES
     app.add_url_rule("/storages", endpoint="storages", view_func=storages_view)
     app.add_url_rule("/storages/kind/<int:storage_kind>", endpoint="storages_by_kind", view_func=storages_by_kind_view)

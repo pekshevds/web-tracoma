@@ -2,7 +2,7 @@
 
 
 {% block title %}
-web-tracoma/point
+web-tracoma/order
 {% endblock %}
 
 
@@ -11,7 +11,7 @@ web-tracoma/point
     {% if form.id.data %}
     <h1>{{ form.title.data }}</h1>
     {% else %}
-    <h1>New point</h1>
+    <h1>New order</h1>
     {% endif %}
     <form action="{{ url_for('save_order') }}" method="post">
         {{ form.csrf_token }}
@@ -26,14 +26,10 @@ web-tracoma/point
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.carrier_id.label() }}</span>
 
-                <select class="form-select" aria-label="Default select example" name="carrier">
-                    {% if form.carrier_id.data %}
-                    <option selected>{{ form.carrier_id.data }}</option>
-                    {% else %}
+                <select class="form-select" aria-label="Default select example" name="carrier">                    
                     <option selected></option>
-                    {% endif %}
                     {% for carrier in carriers %}
-                    <option value="{{ carrier.id }}">{{ carrier.title }}</option>
+                        <option {% if carrier.id == form.carrier_id.data %} selected {% endif %} value="{{ carrier.id }}">{{ carrier.title }}</option>
                     {% endfor %}
                 </select>
                 
@@ -44,14 +40,10 @@ web-tracoma/point
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.consignee_id.label() }}</span>
 
-                <select class="form-select" aria-label="Default select example" name="consignee">
-                    {% if form.consignee_id.data %}
-                    <option selected>{{ form.consignee_id.data }}</option>
-                    {% else %}
-                    <option selected></option>
-                    {% endif %}                    
+                <select class="form-select" aria-label="Default select example" name="consignee">                    
+                    <option selected></option>                    
                     {% for counteragent in counteragents %}
-                    <option value="{{ counteragent.id }}">{{ counteragent.title }}</option>
+                    <option {% if counteragent.id == form.consignee_id.data %} selected {% endif %} value="{{ counteragent.id }}">{{ counteragent.title }}</option>
                     {% endfor %}
                 </select>
                 
@@ -67,13 +59,9 @@ web-tracoma/point
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.consignee_contact_id.label() }}</span>
 
                 <select class="form-select" aria-label="Default select example" name="consignee_contact">
-                    {% if form.consignee_contact_id.data %}
-                    <option selected>{{ form.consignee_contact_id.data }}</option>
-                    {% else %}
-                    <option selected></option>
-                    {% endif %}                    
+                    <option selected></option>                    
                     {% for counteragent in counteragents %}
-                    <option value="{{ counteragent.id }}">{{ counteragent.title }}</option>
+                        <option {% if counteragent.id == form.consignee_contact_id.data %} selected {% endif %} value="{{ counteragent.id }}">{{ counteragent.title }}</option>
                     {% endfor %}
                 </select>
                 
@@ -90,13 +78,9 @@ web-tracoma/point
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.shipper_id.label() }}</span>
 
                 <select class="form-select" aria-label="Default select example" name="shipper">
-                    {% if form.shipper_id.data %}
-                    <option selected>{{ form.shipper_id.data }}</option>
-                    {% else %}
-                    <option selected></option>
-                    {% endif %}                    
-                    {% for counteragent in counteragents %}
-                    <option value="{{ counteragent.id }}">{{ counteragent.title }}</option>
+                    <option selected></option>                    
+                    {% for counteragent in counteragents %}                    
+                    <option {% if counteragent.id == form.shipper_id.data %} selected {% endif %} value="{{ counteragent.id }}">{{ counteragent.title }}</option>
                     {% endfor %}
                 </select>
                 
@@ -110,15 +94,10 @@ web-tracoma/point
 
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.shipper_contact_id.label() }}</span>
-
-                <select class="form-select" aria-label="Default select example" name="shipper_contact">
-                    {% if form.shipper_contact_id.data %}
-                    <option selected>{{ form.shipper_contact_id.data }}</option>
-                    {% else %}
+                <select class="form-select" aria-label="Default select example" name="shipper_contact">                    
                     <option selected></option>
-                    {% endif %}                    
                     {% for counteragent in counteragents %}
-                    <option value="{{ counteragent.id }}">{{ counteragent.title }}</option>
+                    <option {% if counteragent.id == form.shipper_contact_id.data %} selected {% endif %} value="{{ counteragent.id }}">{{ counteragent.title }}</option>
                     {% endfor %}
                 </select>
                 
@@ -135,13 +114,9 @@ web-tracoma/point
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.point_from_id.label() }}</span>
 
                 <select class="form-select" aria-label="Default select example" name="point_from">
-                    {% if form.point_from_id.data %}
-                    <option selected>{{ form.point_from_id.data }}</option>
-                    {% else %}
                     <option selected></option>
-                    {% endif %}                    
                     {% for point in points %}
-                    <option value="{{ point.id }}">{{ point.short }}/{{ point.title }}</option>
+                    <option {% if point.id == form.point_from_id.data %} selected {% endif %} value="{{ point.id }}">{{ point.title }}</option>
                     {% endfor %}
                 </select>
                 
@@ -151,13 +126,9 @@ web-tracoma/point
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.point_to_id.label() }}</span>
 
                 <select class="form-select" aria-label="Default select example" name="point_to">
-                    {% if form.point_to_id.data %}
-                    <option selected>{{ form.point_to_id.data }}</option>
-                    {% else %}
                     <option selected></option>
-                    {% endif %}                    
                     {% for point in points %}
-                    <option value="{{ point.id }}">{{ point.short }}/{{ point.title }}</option>
+                    <option {% if point.id == form.point_to_id.data %} selected {% endif %} value="{{ point.id }}">{{ point.title }}</option>
                     {% endfor %}
                 </select>
                 

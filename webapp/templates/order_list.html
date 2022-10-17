@@ -45,6 +45,7 @@ web-tracoma/orders
 
         <div class="col-1">
             <a href="{{ url_for('show_order', order_id=order.id) }}">{{ order.id }}</a>
+            {% if order.is_deleted %}<img src="{{ url_for('static', filename='images/trash.png') }}" width="32" height="32" alt="">{% endif %}
         </div>
 
         <div class="col-5">
@@ -52,7 +53,7 @@ web-tracoma/orders
         </div>
 
         <div class="col-1">
-            {{ point.short }}
+            {{ order.short }}
         </div>
        
         <div class="col-1">

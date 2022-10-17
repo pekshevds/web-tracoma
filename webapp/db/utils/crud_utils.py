@@ -1,10 +1,15 @@
+from typing import Callable, Type
 from sqlalchemy.exc import SQLAlchemyError
+from webapp.db.models import db
 
 
-def update_or_create_item(id: int, db, get_func, object, **kwargs):
+def update_or_create_item(id: int, get_func: Callable, new_object_class: Type, **kwargs) -> bool:
+    """
+    updates an existing record in the database or creates a new record
+    """
     item = get_func(id=id)
     if not item:
-        item = object()
+        item = new_object_class()
 
     for key, value in kwargs.items():        
         if hasattr(item, key):
@@ -18,7 +23,10 @@ def update_or_create_item(id: int, db, get_func, object, **kwargs):
     return True
 
 
-def delete_item(id: int, db, get_func):
+def delete_item(id: int, get_func: Callable) -> bool:
+    """
+    marks a database record as deleted
+    """
     item = get_func(id=id)
     if item:
         item.is_deleted = True

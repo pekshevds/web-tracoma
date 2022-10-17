@@ -27,7 +27,7 @@ web-tracoma/points
     <div class="row">
 
         <div class="col-1">
-            <h5>
+            <h5>                
                 id
             </h5>
         </div>
@@ -48,8 +48,9 @@ web-tracoma/points
     {% for point in points %}
     <div class="row">
 
-        <div class="col-1">
+        <div class="col-1">            
             <a href="{{ url_for('show_point', point_id=point.id) }}">{{ point.id }}</a>
+            {% if point.is_deleted %}<img src="{{ url_for('static', filename='images/trash.png') }}" width="32" height="32" alt="">{% endif %}
         </div>
 
         <div class="col-5">

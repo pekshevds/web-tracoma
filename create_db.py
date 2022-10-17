@@ -1,4 +1,4 @@
-from webapp import create_app
+from webapp.app import create_app
 from webapp.db.models import db
 
 

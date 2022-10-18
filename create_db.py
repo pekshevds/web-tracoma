@@ -1,5 +1,5 @@
-from flaskr import create_app
-from flaskr.models import db
+from webapp.app import create_app
+from webapp.db.common import db
 
 
 app = create_app()

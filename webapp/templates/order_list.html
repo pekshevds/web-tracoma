@@ -2,24 +2,24 @@
 
 
 {% block title %}
-point_list
+web-tracoma/orders
 {% endblock %}
 
 
 {% block content %}
 
 <div class="container">
-    <h1>points</h1>
+    <h1>orders</h1>
     
     <div class="row">
         <div class="col-12">
-            <a href="{{ url_for('points') }}">all points</a>
+            <a href="{{ url_for('orders') }}">all orders</a>
         </div>       
     </div>
 
     <div class="row">
         <div class="col-12">
-            <a href="{{ url_for('new_point') }}">new point</a>
+            <a href="{{ url_for('new_order') }}">new order</a>
         </div>        
     </div>
     
@@ -37,31 +37,27 @@ point_list
                 title
             </h5>
         </div>
-
-        <div class="col-1">
-            <h5>
-                short
-            </h5>
-        </div>        
+        
     </div>
     
-    {% for point in points %}
+    {% for order in orders %}
     <div class="row">
 
         <div class="col-1">
-            <a href="{{ url_for('show_point', point_id=point.id) }}">{{ point.id }}</a>
+            <a href="{{ url_for('show_order', order_id=order.id) }}">{{ order.id }}</a>
+            {% if order.is_deleted %}<img src="{{ url_for('static', filename='images/trash.png') }}" width="32" height="32" alt="">{% endif %}
         </div>
 
         <div class="col-5">
-            <a href="{{ url_for('show_point', point_id=point.id) }}">{{ point.title }}</a>
+            <a href="{{ url_for('show_order', order_id=order.id) }}">{{ order.title }}</a>
         </div>
 
         <div class="col-1">
-            {{ point.short }}
+            {{ order.short }}
         </div>
        
         <div class="col-1">
-            <a href="{{ url_for('delete_point', point_id=point.id) }}">x</a>
+            <a href="{{ url_for('delete_order', order_id=order.id) }}">x</a>
         </div>
     </div>
     {% endfor %}

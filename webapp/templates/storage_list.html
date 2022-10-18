@@ -2,7 +2,7 @@
 
 
 {% block title %}
-storage_list
+web-tracoma/storages
 {% endblock %}
 
 
@@ -83,6 +83,7 @@ storage_list
 
         <div class="col-1">
             <a href="{{ url_for('show_storage', storage_id=storage.id) }}">{{ storage.id }}</a>
+            {% if storage.is_deleted %}<img src="{{ url_for('static', filename='images/trash.png') }}" width="32" height="32" alt="">{% endif %}
         </div>
 
         <div class="col-5">

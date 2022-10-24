@@ -30,8 +30,7 @@ def get_carriers():
 def get_counteragents():
     """gets a list of counteragents (shippers and consignee)
     """
-    return Storage.query.filter(
-        Storage.is_internal == (True)).all()
+    return Storage.query.filter(Storage.is_internal == (False)).all()
 
 
 def get_employees():

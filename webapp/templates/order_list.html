@@ -32,11 +32,41 @@ web-tracoma/orders
             </h5>
         </div>
 
-        <div class="col-5">
+        <div class="col-3">
             <h5>
                 title
             </h5>
         </div>
+
+        <div class="col-1">
+            <h5>
+                carrier
+            </h5>
+        </div>
+        
+        <div class="col-1">
+            <h5>
+                consignee
+            </h5>
+        </div>
+
+        <div class="col-1">
+            <h5>
+                shipper
+            </h5>
+        </div>
+
+        <div class="col-1">
+            <h5>
+                point_from
+            </h5>
+        </div>
+
+        <div class="col-1">
+            <h5>
+                point_to
+            </h5>
+        </div>      
         
     </div>
     
@@ -48,14 +78,30 @@ web-tracoma/orders
             {% if order.is_deleted %}<img src="{{ url_for('static', filename='images/trash.png') }}" width="32" height="32" alt="">{% endif %}
         </div>
 
-        <div class="col-5">
-            <a href="{{ url_for('show_order', order_id=order.id) }}">{{ order.title }}</a>
+        <div class="col-3">
+            <a href="{{ url_for('show_order', order_id=order.id) }}">{{ order }}</a>
         </div>
 
         <div class="col-1">
-            {{ order.short }}
+            {{ order.carrier }}
         </div>
-       
+
+        <div class="col-1">
+            {{ order.consignee }}
+        </div>
+
+        <div class="col-1">
+            {{ order.shipper }}
+        </div>
+
+        <div class="col-1">
+            {{ order.point_from }}
+        </div>
+
+        <div class="col-1">
+            {{ order.point_to }}
+        </div>
+              
         <div class="col-1">
             <a href="{{ url_for('delete_order', order_id=order.id) }}">x</a>
         </div>

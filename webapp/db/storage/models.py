@@ -1,4 +1,5 @@
 from webapp.db.common import db, Directory
+from sqlalchemy.orm import relationship
 
 
 class Storage(db.Model, Directory):
@@ -12,3 +13,6 @@ class Storage(db.Model, Directory):
 
     def __repr__(self) -> str:
         return f"<Storage {self.title}, {self.id}>"
+
+    def __str__(self) -> str:
+        return self.title

@@ -1,8 +1,10 @@
 from flask import render_template, redirect, url_for
 
 from webapp.db.point.fetchers import get_points, get_point_by_id
-from webapp.db.point.changers import update_or_create_point, delete_point
+from webapp.db.point.changers import delete_point
 from webapp.views.point.forms import PointForm
+from webapp.db.common import db
+from webapp.db import Point
 
 
 def points_view():
@@ -11,10 +13,7 @@ def points_view():
 
 def point_view(point_id: int):
     point = get_point_by_id(id=point_id)
-    form = PointForm()
-    form.id.data = point.id
-    form.title.data = point.title
-    form.short.data = point.short
+    form = PointForm(obj=point)
 
     return render_template('point_item.html', form=form)
 
@@ -24,11 +23,30 @@ def new_point_view():
     return render_template('point_item.html', form=form)
 
 
+def save_point(form):
+    id = form.id.data
+    if id:
+        point = get_point_by_id(id=id)
+        form.populate_obj(point)
+    else:
+        point = Point()
+        form.populate_obj(point)
+        point.id = None
+
+    db.session.add(point)
+
+    try:
+        db.session.commit()
+    except (RuntimeError):
+        return False
+    return True
+
+
 def save_point_view():
     form = PointForm()
     if form.validate_on_submit():
-        if update_or_create_point(id=form.id.data, title=form.title.data, short=form.short.data):
-            return redirect(url_for('points'))
+        if save_point(form):
+            return redirect(url_for("points"))
         return render_template("crud_error.html", content='error on create or update point info')
     return render_template("crud_error.html", content='error on validation')
 

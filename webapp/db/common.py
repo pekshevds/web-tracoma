@@ -13,4 +13,4 @@ class Directory(object):
 
     @property
     def is_new(self):
-        return self.id == None
+        return self.id == (None)

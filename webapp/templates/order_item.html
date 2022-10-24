@@ -15,92 +15,100 @@ web-tracoma/order
     {% endif %}
     <form action="{{ url_for('save_order') }}" method="post">
         {{ form.csrf_token }}
-        <div class="row">            
-                                   
+        <div class="row">
+
             <div class="input-group input-group-sm mb-3 visually-hidden">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.id.label() }}</span>
                 <input type="text" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-sm" name="id" value="{{ form.id.data }}">
-            </div>  
+            </div>
 
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.carrier_id.label() }}</span>
 
-                <select class="form-select" aria-label="Default select example" name="carrier">                    
+                <select class="form-select" aria-label="Default select example" name="carrier" required>
                     <option selected></option>
                     {% for carrier in carriers %}
-                        <option {% if carrier.id == form.carrier_id.data %} selected {% endif %} value="{{ carrier.id }}">{{ carrier.title }}</option>
+                    <option {% if carrier.id==form.carrier_id.data %} selected {% endif %} value="{{ carrier.id }}">{{
+                        carrier.title }}</option>
                     {% endfor %}
                 </select>
-                
+
             </div>
-            
-            
+
+
             <hr>
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.consignee_id.label() }}</span>
 
-                <select class="form-select" aria-label="Default select example" name="consignee">                    
-                    <option selected></option>                    
+                <select class="form-select" aria-label="Default select example" name="consignee" required>
+                    <option selected></option>
                     {% for counteragent in counteragents %}
-                    <option {% if counteragent.id == form.consignee_id.data %} selected {% endif %} value="{{ counteragent.id }}">{{ counteragent.title }}</option>
+                    <option {% if counteragent.id==form.consignee_id.data %} selected {% endif %}
+                        value="{{ counteragent.id }}">{{ counteragent.title }}</option>
                     {% endfor %}
                 </select>
-                
+
             </div>
 
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.consignee_address.label() }}</span>
                 <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="consignee_address" value="{{ form.consignee_address.data }}">
+                    aria-describedby="inputGroup-sizing-sm" name="consignee_address"
+                    value="{{ form.consignee_address.data }}">
             </div>
 
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.consignee_contact_id.label() }}</span>
 
                 <select class="form-select" aria-label="Default select example" name="consignee_contact">
-                    <option selected></option>                    
+                    <option selected></option>
                     {% for counteragent in counteragents %}
-                        <option {% if counteragent.id == form.consignee_contact_id.data %} selected {% endif %} value="{{ counteragent.id }}">{{ counteragent.title }}</option>
+                    <option {% if counteragent.id==form.consignee_contact_id.data %} selected {% endif %}
+                        value="{{ counteragent.id }}">{{ counteragent.title }}</option>
                     {% endfor %}
                 </select>
-                
+
             </div>
 
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.consignee_phone.label() }}</span>
                 <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="consignee_phone" value="{{ form.consignee_phone.data }}">
+                    aria-describedby="inputGroup-sizing-sm" name="consignee_phone"
+                    value="{{ form.consignee_phone.data }}">
             </div>
-            
+
             <hr>
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.shipper_id.label() }}</span>
 
-                <select class="form-select" aria-label="Default select example" name="shipper">
-                    <option selected></option>                    
-                    {% for counteragent in counteragents %}                    
-                    <option {% if counteragent.id == form.shipper_id.data %} selected {% endif %} value="{{ counteragent.id }}">{{ counteragent.title }}</option>
+                <select class="form-select" aria-label="Default select example" name="shipper" required>
+                    <option selected></option>
+                    {% for counteragent in counteragents %}
+                    <option {% if counteragent.id==form.shipper_id.data %} selected {% endif %}
+                        value="{{ counteragent.id }}">{{ counteragent.title }}</option>
                     {% endfor %}
                 </select>
-                
+
             </div>
 
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.shipper_address.label() }}</span>
                 <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="shipper_address" value="{{ form.shipper_address.data }}">
+                    aria-describedby="inputGroup-sizing-sm" name="shipper_address"
+                    value="{{ form.shipper_address.data }}">
             </div>
 
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.shipper_contact_id.label() }}</span>
-                <select class="form-select" aria-label="Default select example" name="shipper_contact">                    
+                <select class="form-select" aria-label="Default select example" name="shipper_contact">
                     <option selected></option>
                     {% for counteragent in counteragents %}
-                    <option {% if counteragent.id == form.shipper_contact_id.data %} selected {% endif %} value="{{ counteragent.id }}">{{ counteragent.title }}</option>
+                    <option {% if counteragent.id==form.shipper_contact_id.data %} selected {% endif %}
+                        value="{{ counteragent.id }}">{{ counteragent.title }}</option>
                     {% endfor %}
                 </select>
-                
+
             </div>
 
             <div class="input-group input-group-sm mb-3">
@@ -110,31 +118,39 @@ web-tracoma/order
             </div>
 
             <hr>
-            <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.point_from_id.label() }}</span>
+            <div class="row">
+                <div class="col">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.point_from_id.label() }}</span>
 
-                <select class="form-select" aria-label="Default select example" name="point_from">
-                    <option selected></option>
-                    {% for point in points %}
-                    <option {% if point.id == form.point_from_id.data %} selected {% endif %} value="{{ point.id }}">{{ point.title }}</option>
-                    {% endfor %}
-                </select>
-                
+                        <select class="form-select" aria-label="Default select example" name="point_from" required>
+                            <option selected></option>
+                            {% for point in points %}
+                            <option {% if point.id==form.point_from_id.data %} selected {% endif %}
+                                value="{{ point.id }}">
+                                {{ point.title }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.point_to_id.label() }}</span>
+
+                        <select class="form-select" aria-label="Default select example" name="point_to" required>
+                            <option selected></option>
+                            {% for point in points %}
+                            <option {% if point.id==form.point_to_id.data %} selected {% endif %}
+                                value="{{ point.id }}">{{
+                                point.title }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                </div>
             </div>
 
-            <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.point_to_id.label() }}</span>
-
-                <select class="form-select" aria-label="Default select example" name="point_to">
-                    <option selected></option>
-                    {% for point in points %}
-                    <option {% if point.id == form.point_to_id.data %} selected {% endif %} value="{{ point.id }}">{{ point.title }}</option>
-                    {% endfor %}
-                </select>
-                
-            </div>
-
-            <hr>
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.declared.label() }}</span>
                 <input type="number" step="0.01" class="form-control" aria-label="Sizing example input"
@@ -146,24 +162,26 @@ web-tracoma/order
                 <input type="text" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-sm" name="desc" value="{{ form.desc.data }}">
             </div>
+            <div class="row">
+                <div class="col">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.weight.label() }}</span>
+                        <input type="number" step="0.01" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" name="weight" value="{{ form.weight.data }}">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.volume.label() }}</span>
+                        <input type="number" step="0.01" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" name="volume" value="{{ form.volume.data }}">
+                    </div>
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    {{ form.submit }}
+                </div>
 
-            <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.weight.label() }}</span>
-                <input type="number" step="0.01" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="weight" value="{{ form.weight.data }}">
             </div>
-
-            <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.volume.label() }}</span>
-                <input type="number" step="0.01" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="volume" value="{{ form.volume.data }}">
-            </div>
-                        
-            <div class="input-group input-group-sm mb-3">
-                {{ form.submit }}
-            </div>    
-            
-        </div>
     </form>
 </div>
 {% endblock %}

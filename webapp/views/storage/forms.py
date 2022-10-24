@@ -1,9 +1,17 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, FloatField, BooleanField
 from wtforms.validators import DataRequired
+from wtforms_alchemy import model_form_factory
+from webapp.db import Storage
+
+
+ModelForm = model_form_factory(FlaskForm)
 
 
 class StorageForm(FlaskForm):
+    class Meta:
+        model = Storage
+
     id = IntegerField(label="Id: ", validators=[DataRequired()], name="id", default=-1)
     title = StringField(label="Title: ", validators=[DataRequired()], name="title", default="")
     is_internal = BooleanField(label="Internal: ", name="is_internal", default=False)

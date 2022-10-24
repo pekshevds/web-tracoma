@@ -37,16 +37,21 @@ def new_storage_view(storage_kind: int):
 def save_storage_view():
     form = StorageForm()
     if form.validate_on_submit():
-        if update_or_create_storage(id=form.id.data, title=form.title.data, 
-                                    is_internal=form.is_internal.data, is_employee=form.is_employee.data,
-                                    kind=form.kind.data, inn=form.inn.data, kpp=form.kpp.data,
-                                    weight=form.weight.data, volume=form.volume.data):
+        if update_or_create_storage(id=form.id.data,
+                                    title=form.title.data,
+                                    is_internal=form.is_internal.data,
+                                    is_employee=form.is_employee.data,
+                                    kind=form.kind.data,
+                                    inn=form.inn.data,
+                                    kpp=form.kpp.data,
+                                    weight=form.weight.data,
+                                    volume=form.volume.data):
             return redirect(url_for('storages'))
         return render_template("crud_error.html", content='error on create or update storage info')
     return render_template("crud_error.html", content='error on validation')
 
 
-def delete_storage_view(storage_id: int):    
+def delete_storage_view(storage_id: int):
     if delete_storage(id=storage_id):
         return redirect(url_for('storages'))
     return render_template("crud_error.html", content='error on mark storage for deleting')

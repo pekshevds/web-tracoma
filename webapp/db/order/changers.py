@@ -9,4 +9,3 @@ def update_or_create_order(id: int, **kwargs):
 
 def delete_order(id: int):
     return delete_item(id=id, get_func=get_order_by_id)
-    

@@ -9,4 +9,3 @@ def update_or_create_point(id: int, **kwargs):
 
 def delete_point(id: int):
     return delete_item(id=id, get_func=get_point_by_id)
-    

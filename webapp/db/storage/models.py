@@ -1,8 +1,7 @@
 from webapp.db.common import db, Directory
-        
+
 
 class Storage(db.Model, Directory):
-    
     is_internal = db.Column(db.Boolean, default=False)
     is_employee = db.Column(db.Boolean, default=False)
     kind = db.Column(db.Integer, nullable=False)
@@ -10,6 +9,6 @@ class Storage(db.Model, Directory):
     kpp = db.Column(db.String(10))
     weight = db.Column(db.Float)
     volume = db.Column(db.Float)
-    
+
     def __repr__(self) -> str:
         return f"<Storage {self.title}, {self.id}>"

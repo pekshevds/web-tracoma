@@ -7,5 +7,5 @@ def get_points():
 def get_point_by_id(id: int):
     try:
         return Point.query.get(id)
-    except:
+    except (RuntimeError):
         return None

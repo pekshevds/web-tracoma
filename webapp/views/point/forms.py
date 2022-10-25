@@ -8,7 +8,7 @@ from webapp.db import Point
 ModelForm = model_form_factory(FlaskForm)
 
 
-class PointForm(FlaskForm):
+class PointForm(ModelForm):
     class Meta:
         model = Point
 

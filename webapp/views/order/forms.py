@@ -8,7 +8,7 @@ from webapp.db import Order
 ModelForm = model_form_factory(FlaskForm)
 
 
-class OrderForm(FlaskForm):
+class OrderForm(ModelForm):
     class Meta:
         model = Order
 

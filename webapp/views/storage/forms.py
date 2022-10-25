@@ -8,7 +8,7 @@ from webapp.db import Storage
 ModelForm = model_form_factory(FlaskForm)
 
 
-class StorageForm(FlaskForm):
+class StorageForm(ModelForm):
     class Meta:
         model = Storage
 

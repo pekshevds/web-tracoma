@@ -1,0 +1,91 @@
+
+<div class="container">
+    <h1>attachments</h1>
+           
+    <div class="row">
+        <div class="col-12">
+            <a href="{{ url_for('new_attachment', order_id=form.id.data) }}">new attachment</a>
+        </div>        
+    </div>
+    <div class="row">
+
+        <div class="col-1">
+            <h5>
+                id
+            </h5>
+        </div>
+
+        <div class="col-5">
+            <h5>
+                title
+            </h5>
+        </div>
+
+        <div class="col-1">
+            <h5>
+                weight
+            </h5>
+        </div>
+
+        <div class="col-1">
+            <h5>
+                volume
+            </h5>
+        </div>
+        <div class="col-1">            
+            <h5>
+                height
+            </h5>
+        </div>
+        <div class="col-1">            
+            <h5>
+                width
+            </h5>
+        </div>
+        <div class="col-1">            
+            <h5>
+                depth
+            </h5>
+        </div>
+        <div class="col-1">
+            <h5>
+                
+            </h5>
+        </div>
+    </div>
+    
+
+    {% for attachment in attachments %}
+    <div class="row">
+
+        <div class="col-1">
+            <a href="{{ url_for('show_attachment', attachment_id=attachment.id) }}">{{ attachment.id }}</a>
+            {% if attachment.is_deleted %}<img src="{{ url_for('static', filename='images/trash.png') }}" width="32" height="32" alt="">{% endif %}
+        </div>
+
+        <div class="col-5">
+            <a href="{{ url_for('show_attachment', attachment_id=attachment.id) }}">{{ attachment.title }}</a>
+        </div>
+
+        <div class="col-1">
+            {{ attachment.weight }}
+        </div>
+
+        <div class="col-1">
+            {{ attachment.volume }}
+        </div>
+        <div class="col-1">
+            {{ attachment.height }}
+        </div>
+        <div class="col-1">
+            {{ attachment.width }}
+        </div>
+        <div class="col-1">
+            {{ attachment.depth }}
+        </div>
+        <div class="col-1">
+            <a href="{{ url_for('delete_attachment', attachment_id=attachment.id) }}">x</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>

@@ -3,12 +3,14 @@ from os.path import abspath
 from webapp.db.common import db
 
 from webapp.views import home_view, about_view
-from webapp.views.point import delete_point_view, points_view, point_view, \
-    new_point_view, save_point_view
-from webapp.views.order import delete_order_view, orders_view, order_view, \
-    new_order_view, save_order_view
-from webapp.views.storage import storages_view, storages_by_kind_view, \
-    storage_view, new_storage_view, delete_storage_view, save_storage_view
+from webapp.views.point import (delete_point_view, points_view, point_view,
+                                new_point_view, save_point_view)
+from webapp.views.order import (delete_order_view, orders_view, order_view,
+                                new_order_view, save_order_view)
+from webapp.views.storage import (storages_view, storages_by_kind_view,
+                                  storage_view, new_storage_view, delete_storage_view, save_storage_view)
+from webapp.views.attachment import (attachments_view, attachment_view,
+                                     new_attachment_view, save_attachment_view, delete_attachment_view)
 
 
 def create_app():
@@ -32,6 +34,14 @@ def create_app():
     app.add_url_rule("/orders/new", endpoint="new_order", view_func=new_order_view)
     app.add_url_rule("/orders/delete/<int:order_id>", endpoint="delete_order", view_func=delete_order_view)
     app.add_url_rule("/orders/save", endpoint="save_order", view_func=save_order_view, methods=['POST'])
+
+    # ATTACHMENTS
+    app.add_url_rule("/attachments/order/<int:order_id>", endpoint="attachments", view_func=attachments_view)
+    app.add_url_rule("/attachments/show/<int:attachment_id>", endpoint="show_attachment", view_func=attachment_view)
+    app.add_url_rule("/attachments/new/order/<int:order_id>", endpoint="new_attachment", view_func=new_attachment_view)
+    app.add_url_rule("/attachments/delete/<int:attachment_id>", endpoint="delete_attachment",
+                     view_func=delete_attachment_view)
+    app.add_url_rule("/attachments/save", endpoint="save_attachment", view_func=save_attachment_view, methods=['POST'])
 
     # STORAGES
     app.add_url_rule("/storages", endpoint="storages", view_func=storages_view)

@@ -1,5 +1,6 @@
 from webapp.db.common import db, Directory, Attachment
 from webapp.db import Order, Storage
+from webapp.db.storage.fetchers import get_storage_by_id
 from datetime import datetime
 
 
@@ -13,6 +14,10 @@ class ReceiptOfCargo(db.Model, Directory):
 
     def __str__(self) -> str:
         return f"Receipt of cargo #{self.id} of {datetime.strftime(self.create_date, '%Y-%m-%d')}"
+
+    @property
+    def storage(self):
+        return get_storage_by_id(id=self.storage_id)
 
 
 class AttachmentReceiptOfCargo(db.Model, Attachment):

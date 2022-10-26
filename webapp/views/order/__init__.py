@@ -7,7 +7,7 @@ from webapp.db.storage.fetchers import get_carriers, get_counteragents
 from webapp.views.order.forms import OrderForm, AttachmentForm
 from webapp.views.errors import (get_tempale_error_on_create_or_update,
                                  get_tempale_error_on_validation,
-                                 get_tempale_error_on_mark_order_for_deleting)
+                                 get_tempale_error_on_mark_for_deleting)
 
 
 def orders_view():
@@ -45,28 +45,28 @@ def save_order_view():
 def delete_order_view(order_id: int):
     if delete_order(id=order_id):
         return redirect(url_for('orders'))
-    return get_tempale_error_on_mark_order_for_deleting()
+    return get_tempale_error_on_mark_for_deleting()
 
 
-def attachments_view(order_id: int):
+def order_attachments_view(order_id: int):
     order = get_order_by_id(id=order_id)
-    return render_template('attachment_list.html', attachments=order.attachments)
+    return render_template('order_attachment_list.html', attachments=order.attachments)
 
 
-def attachment_view(attachment_id: int):
+def order_attachment_view(attachment_id: int):
     attachment = get_attachment_by_id(id=attachment_id)
     form = AttachmentForm(obj=attachment)
 
-    return render_template('attachment_item.html', form=form)
+    return render_template('order_attachment_item.html', form=form)
 
 
-def new_attachment_view(order_id: int):
+def order_new_attachment_view(order_id: int):
     form = AttachmentForm()
     form.order_id.data = order_id
-    return render_template('attachment_item.html', form=form)
+    return render_template('order_attachment_item.html', form=form)
 
 
-def save_attachment_view():
+def order_save_attachment_view():
     form = AttachmentForm()
     if form.validate_on_submit():
         if save_attachment(form):
@@ -75,7 +75,7 @@ def save_attachment_view():
     return render_template("crud_error.html", content=f"error on validation {form.errors}")
 
 
-def delete_attachment_view(attachment_id: int):
+def order_delete_attachment_view(attachment_id: int):
     if delete_attachment(id=attachment_id):
         attachment = get_attachment_by_id(id=attachment_id)
         return redirect(url_for('show_order', order_id=attachment.id))

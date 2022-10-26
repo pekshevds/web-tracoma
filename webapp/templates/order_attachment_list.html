@@ -4,7 +4,7 @@
            
     <div class="row">
         <div class="col-12">
-            <a href="{{ url_for('new_attachment', order_id=form.id.data) }}">new attachment</a>
+            <a href="{{ url_for('new_order_attachment', order_id=form.id.data) }}">new attachment</a>
         </div>        
     </div>
     <div class="row">
@@ -59,12 +59,12 @@
     <div class="row">
 
         <div class="col-1">
-            <a href="{{ url_for('show_attachment', attachment_id=attachment.id) }}">{{ attachment.id }}</a>
+            <a href="{{ url_for('show_order_attachment', attachment_id=attachment.id) }}">{{ attachment.id }}</a>
             {% if attachment.is_deleted %}<img src="{{ url_for('static', filename='images/trash.png') }}" width="32" height="32" alt="">{% endif %}
         </div>
 
         <div class="col-5">
-            <a href="{{ url_for('show_attachment', attachment_id=attachment.id) }}">{{ attachment }}</a>
+            <a href="{{ url_for('show_order_attachment', attachment_id=attachment.id) }}">{{ attachment }}</a>
         </div>
 
         <div class="col-1">
@@ -84,7 +84,7 @@
             {{ attachment.depth }}
         </div>
         <div class="col-1">
-            <a href="{{ url_for('delete_attachment', attachment_id=attachment.id) }}">x</a>
+            <a href="{{ url_for('delete_order_attachment', attachment_id=attachment.id) }}">x</a>
         </div>
     </div>
     {% endfor %}

@@ -2,18 +2,14 @@
 
 
 {% block title %}
-web-tracoma/attachment
+web-tracoma/receipt attachment
 {% endblock %}
 
 
 {% block content %}
 <div class="container">
-    {% if form.id.data %}
-    <h1>{{ form.title.data }}</h1>
-    {% else %}
-    <h1>New attachment</h1>
-    {% endif %}
-    <form action="{{ url_for('save_attachment') }}" method="post">
+    
+    <form action="{{ url_for('save_order_attachment') }}" method="post">
         {{ form.csrf_token }}
         <div class="row">
 

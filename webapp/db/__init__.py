@@ -1,4 +1,4 @@
 from webapp.db.storage.models import Storage
 from webapp.db.point.models import Point
 from webapp.db.order.models import Order
-from webapp.db.attachment.models import Attachment
+from webapp.db.receipt_of_cargo.models import ReceiptOfCargo

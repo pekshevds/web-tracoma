@@ -1,4 +1,4 @@
-from webapp.db.common import db, Directory
+from webapp.db.common import db, Directory, Attachment
 from webapp.db.storage.fetchers import get_storage_by_id
 from webapp.db.point.fetchers import get_point_by_id
 from datetime import datetime
@@ -20,6 +20,8 @@ class Order(db.Model, Directory):
     shipper_phone = db.Column(db.String(255))
     weight = db.Column(db.Float)
     volume = db.Column(db.Float)
+
+    attachments = db.relationship('Attachment', cascade='all, delete', lazy=True)
 
     def __repr__(self) -> str:
         return f"<Cargo {self.title}, {self.id}>"
@@ -46,3 +48,18 @@ class Order(db.Model, Directory):
     @property
     def point_to(self):
         return get_point_by_id(self.point_to_id)
+
+
+class Attachment(db.Model, Attachment):
+    weight = db.Column(db.Float)
+    volume = db.Column(db.Float)
+    height = db.Column(db.Float)
+    width = db.Column(db.Float)
+    depth = db.Column(db.Float)
+    order_id = db.Column(db.Integer, db.ForeignKey(Order.id), nullable=True)
+
+    def __repr__(self) -> str:
+        return f"<Attachment {self.id} for order {self.order_id}>"
+
+    def __str__(self) -> str:
+        return f"{self.height}x{self.width}x{self.depth}"

@@ -9,8 +9,8 @@ from webapp.views.order import (delete_order_view, orders_view, order_view,
                                 new_order_view, save_order_view)
 from webapp.views.storage import (storages_view, storages_by_kind_view,
                                   storage_view, new_storage_view, delete_storage_view, save_storage_view)
-from webapp.views.attachment import (attachments_view, attachment_view,
-                                     new_attachment_view, save_attachment_view, delete_attachment_view)
+from webapp.views.order import (attachments_view, attachment_view,
+                                new_attachment_view, save_attachment_view, delete_attachment_view)
 
 
 def create_app():
@@ -35,7 +35,7 @@ def create_app():
     app.add_url_rule("/orders/delete/<int:order_id>", endpoint="delete_order", view_func=delete_order_view)
     app.add_url_rule("/orders/save", endpoint="save_order", view_func=save_order_view, methods=['POST'])
 
-    # ATTACHMENTS
+    # ORDER ATTACHMENTS
     app.add_url_rule("/attachments/order/<int:order_id>", endpoint="attachments", view_func=attachments_view)
     app.add_url_rule("/attachments/show/<int:attachment_id>", endpoint="show_attachment", view_func=attachment_view)
     app.add_url_rule("/attachments/new/order/<int:order_id>", endpoint="new_attachment", view_func=new_attachment_view)

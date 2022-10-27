@@ -76,7 +76,8 @@ def order_save_attachment_view():
 
 
 def order_delete_attachment_view(attachment_id: int):
+    attachment = get_attachment_by_id(id=attachment_id)
+    order_id = attachment.order_id
     if delete_attachment(id=attachment_id):
-        attachment = get_attachment_by_id(id=attachment_id)
-        return redirect(url_for('show_order', order_id=attachment.id))
+        return redirect(url_for('show_order', order_id=order_id))
     return render_template("crud_error.html", content='error on mark attachment for deleting')

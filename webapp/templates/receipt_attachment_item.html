@@ -9,7 +9,7 @@ web-tracoma/receipt attachment
 {% block content %}
 <div class="container">
     
-    <form action="{{ url_for('save_order_attachment') }}" method="post">
+    <form action="{{ url_for('save_receipt_attachment') }}" method="post">
         {{ form.csrf_token }}
         <div class="row">
 
@@ -19,49 +19,21 @@ web-tracoma/receipt attachment
                     aria-describedby="inputGroup-sizing-sm" name="id" value="{{ form.id.data }}">
             </div>
             <div class="input-group input-group-sm mb-3 visually-hidden">
-                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.order_id.label() }}</span>
+                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.receipt_id.label() }}</span>
                 <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="order_id" value="{{ form.order_id.data }}">
+                    aria-describedby="inputGroup-sizing-sm" name="receipt_id" value="{{ form.receipt_id.data }}">
             </div>
-            <div class="row">
-                <div class="col-2">
-                    <div class="input-group input-group-sm mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.volume.label() }}</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-sm" name="volume" value="{{ form.volume.data }}">
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="input-group input-group-sm mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.weight.label() }}</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-sm" name="weight" value="{{ form.weight.data }}">
-                    </div>
-                </div>
-            </div>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.order_id.label() }}</span>
 
-            <div class="row">
-                <div class="col-2">
-                    <div class="input-group input-group-sm mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.height.label() }}</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-sm" name="height" value="{{ form.height.data }}">
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="input-group input-group-sm mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.width.label() }}</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-sm" name="width" value="{{ form.width.data }}">
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="input-group input-group-sm mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.depth.label() }}</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-sm" name="depth" value="{{ form.depth.data }}">
-                    </div>
-                </div>
+                <select class="form-select" aria-label="Default select example" name="order" required>
+                    <option selected></option>
+                    {% for order in orders %}
+                    <option {% if order.id==form.order_id.data %} selected {% endif %}
+                        value="{{ order.id }}">{{ order }}</option>
+                    {% endfor %}
+                </select>
+
             </div>
 
             <div class="row">

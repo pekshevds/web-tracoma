@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for
 
 from webapp.db.point.fetchers import get_points, get_point_by_id
-from webapp.db.point.changers import delete_point
+from webapp.db.point.changers import delete_point, save_point
 from webapp.views.point.forms import PointForm
 from webapp.db.common import db
 from webapp.db import Point
@@ -21,25 +21,6 @@ def point_view(point_id: int):
 def new_point_view():
     form = PointForm()
     return render_template('point_item.html', form=form)
-
-
-def save_point(form):
-    id = form.id.data
-    if id:
-        point = get_point_by_id(id=id)
-        form.populate_obj(point)
-    else:
-        point = Point()
-        form.populate_obj(point)
-        point.id = None
-
-    db.session.add(point)
-
-    try:
-        db.session.commit()
-    except (RuntimeError):
-        return False
-    return True
 
 
 def save_point_view():

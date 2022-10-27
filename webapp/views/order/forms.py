@@ -33,8 +33,6 @@ class OrderForm(ModelForm):
 
     declared = FloatField(label="Declared: ", name="declared", default=.0)
     desc = StringField(label="Description: ", name="desc", default="")
-    weight = FloatField(label="Weight: ", name="weight", default=.0)
-    volume = FloatField(label="Volume: ", name="volume", default=.0)
 
     submit = SubmitField("Save", render_kw={"class": "btn btn-primary"})
 

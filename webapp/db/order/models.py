@@ -10,24 +10,30 @@ class Order(db.Model, Directory):
     consignee_address = db.Column(db.String(255))
     consignee_contact_id = db.Column(db.Integer, db.ForeignKey('storage.id'), nullable=True)
     consignee_phone = db.Column(db.String(255))
-    declared = db.Column(db.Float)
-    desc = db.Column(db.Text)
+    declared = db.Column(db.Float, default=.0)
+    desc = db.Column(db.Text, default="")
     point_from_id = db.Column(db.Integer, db.ForeignKey('point.id'), nullable=False)
     point_to_id = db.Column(db.Integer, db.ForeignKey('point.id'), nullable=False)
     shipper_id = db.Column(db.Integer, db.ForeignKey('storage.id'), nullable=False)
     shipper_address = db.Column(db.String(255))
     shipper_contact_id = db.Column(db.Integer, db.ForeignKey('storage.id'), nullable=True)
     shipper_phone = db.Column(db.String(255))
-    weight = db.Column(db.Float)
-    volume = db.Column(db.Float)
 
-    attachments = db.relationship('Attachment', cascade='all, delete', lazy=True)
+    attachments = db.relationship('Attachment', cascade='all, delete', lazy=True, backref="order")
 
     def __repr__(self) -> str:
         return f"<Cargo {self.title}, {self.id}>"
 
     def __str__(self) -> str:
         return f"Order #{self.id} of {datetime.strftime(self.create_date, '%Y-%m-%d')}"
+
+    @property
+    def weight(self):
+        return sum([attachment.weight for attachment in self.attachments])
+
+    @property
+    def volume(self):
+        return sum([attachment.volume for attachment in self.attachments])
 
     @property
     def carrier(self):

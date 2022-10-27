@@ -7,7 +7,7 @@ from datetime import datetime
 
 class ReceiptOfCargo(db.Model, Directory):
     storage_id = db.Column(db.Integer, db.ForeignKey(Storage.id), nullable=True)
-    total = db.Column(db.Float, default=.0)
+    cost = db.Column(db.Float, default=.0)
     attachments = db.relationship('AttachmentReceiptOfCargo', cascade='all, delete', lazy=True, backref="receipt")
 
     def __repr__(self) -> str:

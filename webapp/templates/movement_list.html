@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+web-tracoma/movements
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <h1>movements</h1>
+    
+    <div class="row">
+        <div class="col-12">
+            <a href="{{ url_for('movements') }}">all movements</a>
+        </div>       
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <a href="{{ url_for('new_movement') }}">new movement</a>
+        </div>        
+    </div>
+    
+
+    <div class="row">
+
+        <div class="col-1">
+            <h5>
+                id
+            </h5>
+        </div>
+
+        <div class="col-3">
+            <h5>
+                title
+            </h5>
+        </div>
+
+        <div class="col-1">
+            <h5>
+                shipper
+            </h5>
+        </div>
+        <div class="col-1">
+            <h5>
+                consignee
+            </h5>
+        </div>
+                
+        <div class="col-1">
+            <h5>
+                weight
+            </h5>
+        </div>
+
+        <div class="col-1">
+            <h5>
+                volume
+            </h5>
+        </div>
+
+        <div class="col-1">
+            <h5>
+                total
+            </h5>
+        </div>      
+        
+    </div>
+    
+    {% if movements %}
+        {% for movement in movements %}
+        <div class="row">
+
+            <div class="col-1">
+                <a href="{{ url_for('show_movement', movement_id=movement.id) }}">{{ movement.id }}</a>
+                {% if movement.is_deleted %}<img src="{{ url_for('static', filename='images/trash.png') }}" width="32" height="32" alt="">{% endif %}
+            </div>
+
+            <div class="col-3">
+                <a href="{{ url_for('show_movement', movement_id=movement.id) }}">{{ movement }}</a>
+            </div>
+
+            <div class="col-1">
+                {{ movement.shipper }}
+            </div>
+
+            <div class="col-1">
+                {{ movement.consignee }}
+            </div>
+            
+            <div class="col-1">
+                {{ movement.weight }}
+            </div>
+
+            <div class="col-1">
+                {{ movement.volume }}
+            </div>
+
+            <div class="col-1">
+                {{ movement.total }}
+            </div>
+                
+            <div class="col-1">
+                <a href="{{ url_for('delete_movement', movement_id=movement.id) }}">x</a>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% endblock %}

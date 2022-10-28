@@ -18,14 +18,16 @@ def movement_view(movement_id: int):
     movement = get_movement_by_id(id=movement_id)
     form = MovementForm(obj=movement)
     return render_template('movement_item.html', form=form,
-                           storages=get_storages(),
+                           shippers=get_storages(),
+                           consignees=get_storages(),
                            attachments=movement.attachments)
 
 
 def new_movement_view():
     form = MovementForm()
     return render_template('movement_item.html', form=form,
-                           storages=get_storages(),
+                           shippers=get_storages(),
+                           consignees=get_storages(),
                            attachments=None)
 
 
@@ -49,32 +51,32 @@ def movement_attachments_view(movement_id: int):
     return render_template('movement_attachment_list.html', attachments=movement.attachments)
 
 
-def receipt_attachment_view(attachment_id: int):
+def movement_attachment_view(attachment_id: int):
     attachment = get_attachment_by_id(id=attachment_id)
     form = AttachmentForm(obj=attachment)
     orders = get_orders()
-    return render_template('receipt_attachment_item.html', form=form, orders=orders)
+    return render_template('movement_attachment_item.html', form=form, orders=orders)
 
 
-def receipt_new_attachment_view(receipt_id: int):
+def movement_new_attachment_view(movement_id: int):
     form = AttachmentForm()
-    form.receipt_id.data = receipt_id
+    form.movement_id.data = movement_id
     orders = get_orders()
-    return render_template('receipt_attachment_item.html', form=form, orders=orders)
+    return render_template('movement_attachment_item.html', form=form, orders=orders)
 
 
-def receipt_save_attachment_view():
+def movement_save_attachment_view():
     form = AttachmentForm()
     if form.validate_on_submit():
         if save_attachment(form):
-            return redirect(url_for('show_receipt', receipt_id=form.receipt_id.data))
+            return redirect(url_for('show_movement', movement_id=form.movement_id.data))
         return render_template("crud_error.html", content='error on create or update storage info')
     return render_template("crud_error.html", content=f"error on validation {form.errors}")
 
 
-def receipt_delete_attachment_view(attachment_id: int):
+def movement_delete_attachment_view(attachment_id: int):
     attachment = get_attachment_by_id(id=attachment_id)
-    receipt_id = attachment.receipt_id
+    movement_id = attachment.movement_id
     if delete_attachment(id=attachment_id):
-        return redirect(url_for('show_receipt', receipt_id=receipt_id))
+        return redirect(url_for('show_movement', movement_id=movement_id))
     return render_template("crud_error.html", content='error on mark attachment for deleting')

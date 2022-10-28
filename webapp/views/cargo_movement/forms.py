@@ -15,7 +15,7 @@ class MovementForm(ModelForm):
 
     id = IntegerField(label="Id: ", validators=[DataRequired()], name="id", default=-1)
     title = StringField(label="Title: ", name="title", default="")
-    shipper_id = IntegerField(label="Shipper: ", validators=[DataRequired()], name="shipper")
+    shipper_id = IntegerField(label="Shipper: ", validators=[DataRequired()], name="shipper_id")
     consignee_id = IntegerField(label="Consignee: ", validators=[DataRequired()], name="consignee_id")
     cost = FloatField(label="Cost: ", validators=[DataRequired()], name="cost", default=.0)
 

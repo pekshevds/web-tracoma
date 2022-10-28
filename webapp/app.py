@@ -9,9 +9,14 @@ from webapp.views.order import (delete_order_view, orders_view, order_view,
                                 new_order_view, save_order_view)
 from webapp.views.order import (order_attachments_view, order_attachment_view,
                                 order_new_attachment_view, order_save_attachment_view, order_delete_attachment_view)
+from webapp.views.cargo_movement import (delete_movement_view, movements_view, movement_view,
+                                         new_movement_view, save_movement_view,
+                                         movement_attachments_view, movement_attachment_view,
+                                         movement_new_attachment_view, movement_save_attachment_view,
+                                         movement_delete_attachment_view)
 from webapp.views.receipt_of_cargo import (delete_receipt_view, receipts_view, receipt_view,
-                                           new_receipt_view, save_receipt_view)
-from webapp.views.receipt_of_cargo import (receipt_attachments_view, receipt_attachment_view,
+                                           new_receipt_view, save_receipt_view,
+                                           receipt_attachments_view, receipt_attachment_view,
                                            receipt_new_attachment_view, receipt_save_attachment_view,
                                            receipt_delete_attachment_view)
 from webapp.views.storage import (storages_view, storages_by_kind_view,
@@ -68,6 +73,24 @@ def create_app():
                      view_func=receipt_delete_attachment_view)
     app.add_url_rule(f"{prefix}/attachments/save", endpoint="save_receipt_attachment", methods=['POST'],
                      view_func=receipt_save_attachment_view)
+
+    # CARGO MOVEMENT
+    prefix = "/movements"
+    app.add_url_rule(f"{prefix}", endpoint="movements", view_func=movements_view)
+    app.add_url_rule(f"{prefix}/show/<int:movement_id>", endpoint="show_movement", view_func=movement_view)
+    app.add_url_rule(f"{prefix}/new", endpoint="new_movement", view_func=new_movement_view)
+    app.add_url_rule(f"{prefix}/delete/<int:movement_id>", endpoint="delete_movement", view_func=delete_movement_view)
+    app.add_url_rule(f"{prefix}/save", endpoint="save_movement", view_func=save_movement_view, methods=['POST'])
+    app.add_url_rule(f"{prefix}/attachments/movement/<int:movement_id>", endpoint="movement_attachments",
+                     view_func=movement_attachments_view)
+    app.add_url_rule(f"{prefix}/attachments/show/<int:attachment_id>", endpoint="show_movement_attachment",
+                     view_func=movement_attachment_view)
+    app.add_url_rule(f"{prefix}/attachments/new/movement/<int:movement_id>", endpoint="new_movement_attachment",
+                     view_func=movement_new_attachment_view)
+    app.add_url_rule(f"{prefix}/attachments/delete/<int:attachment_id>", endpoint="delete_movement_attachment",
+                     view_func=movement_delete_attachment_view)
+    app.add_url_rule(f"{prefix}/attachments/save", endpoint="save_movement_attachment", methods=['POST'],
+                     view_func=movement_save_attachment_view)
 
     # STORAGES
     prefix = "/storages"

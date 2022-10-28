@@ -17,13 +17,13 @@ def save_attachment(form):
     return update_or_create_item_from_form(form, get_attachment_by_id, AttachmentIssuanceOfCargo)
 
 
-def update_or_create_receipt(id: int, **kwargs):
+def update_or_create_issuance(id: int, **kwargs):
     return update_or_create_item(id=id, get_func=get_issuance_by_id, new_object_class=IssuanceOfCargo, **kwargs)
 
 
-def delete_receipt(id: int):
+def delete_issuance(id: int):
     return delete_item(id=id, get_func=get_issuance_by_id)
 
 
-def save_receipt(form):
+def save_issuance(form):
     return update_or_create_item_from_form(form, get_issuance_by_id, IssuanceOfCargo)

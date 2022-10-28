@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+web-tracoma/issuance
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    {% if form.id.data %}
+    <h1>{{ form.title.data }}</h1>
+    {% else %}
+    <h1>New issuance</h1>
+    {% endif %}
+    <form action="{{ url_for('save_issuance') }}" method="post">
+        {{ form.csrf_token }}
+        <div class="row">
+
+            <div class="input-group input-group-sm mb-3 visually-hidden">
+                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.id.label() }}</span>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm" name="id" value="{{ form.id.data }}">
+            </div>
+
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.storage_id.label() }}</span>
+
+                <select class="form-select" aria-label="Default select example" name="storage" required>
+                    <option selected></option>
+                    {% for storage in storages %}
+                    <option {% if storage.id==form.storage_id.data %} selected {% endif %} value="{{ storage.id }}">{{
+                        storage.title }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.cost.label() }}</span>
+                <input type="number" step="0.01" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm" name="cost" value="{{ form.cost.data }}">
+            </div>
+
+
+
+            <div class="input-group input-group-sm mb-3">
+                {{ form.submit }}
+            </div>
+
+        </div>
+    </form>
+
+    {% include 'issuance_attachment_list.html' %}
+</div>
+{% endblock %}

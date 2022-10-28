@@ -6,9 +6,14 @@ from webapp.views import home_view, about_view
 from webapp.views.point import (delete_point_view, points_view, point_view,
                                 new_point_view, save_point_view)
 from webapp.views.order import (delete_order_view, orders_view, order_view,
-                                new_order_view, save_order_view)
-from webapp.views.order import (order_attachments_view, order_attachment_view,
+                                new_order_view, save_order_view,
+                                order_attachments_view, order_attachment_view,
                                 order_new_attachment_view, order_save_attachment_view, order_delete_attachment_view)
+from webapp.views.issuance_of_cargo import (delete_issuance_view, issuances_view, issuance_view,
+                                            new_issuance_view, save_issuance_view,
+                                            issuance_attachments_view, issuance_attachment_view,
+                                            issuance_new_attachment_view, issuance_save_attachment_view,
+                                            issuance_delete_attachment_view)
 from webapp.views.cargo_movement import (delete_movement_view, movements_view, movement_view,
                                          new_movement_view, save_movement_view,
                                          movement_attachments_view, movement_attachment_view,
@@ -91,6 +96,24 @@ def create_app():
                      view_func=movement_delete_attachment_view)
     app.add_url_rule(f"{prefix}/attachments/save", endpoint="save_movement_attachment", methods=['POST'],
                      view_func=movement_save_attachment_view)
+
+    # ISSUENCE OF CARGO
+    prefix = "/issuances"
+    app.add_url_rule(f"{prefix}", endpoint="issuances", view_func=issuances_view)
+    app.add_url_rule(f"{prefix}/show/<int:issuance_id>", endpoint="show_issuance", view_func=issuance_view)
+    app.add_url_rule(f"{prefix}/new", endpoint="new_issuance", view_func=new_issuance_view)
+    app.add_url_rule(f"{prefix}/delete/<int:issuance_id>", endpoint="delete_issuance", view_func=delete_issuance_view)
+    app.add_url_rule(f"{prefix}/save", endpoint="save_issuance", view_func=save_issuance_view, methods=['POST'])
+    app.add_url_rule(f"{prefix}/attachments/issuance/<int:issuance_id>", endpoint="issuance_attachments",
+                     view_func=issuance_attachments_view)
+    app.add_url_rule(f"{prefix}/attachments/show/<int:attachment_id>", endpoint="show_issuance_attachment",
+                     view_func=issuance_attachment_view)
+    app.add_url_rule(f"{prefix}/attachments/new/issuance/<int:issuance_id>", endpoint="new_issuance_attachment",
+                     view_func=issuance_new_attachment_view)
+    app.add_url_rule(f"{prefix}/attachments/delete/<int:attachment_id>", endpoint="delete_issuance_attachment",
+                     view_func=issuance_delete_attachment_view)
+    app.add_url_rule(f"{prefix}/attachments/save", endpoint="save_issuance_attachment", methods=['POST'],
+                     view_func=issuance_save_attachment_view)
 
     # STORAGES
     prefix = "/storages"

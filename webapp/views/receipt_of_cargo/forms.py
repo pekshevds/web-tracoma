@@ -16,7 +16,7 @@ class ReceiptForm(ModelForm):
     id = IntegerField(label="Id: ", validators=[DataRequired()], name="id", default=-1)
     title = StringField(label="Title: ", name="title", default="")
     storage_id = IntegerField(label="Storage: ", validators=[DataRequired()], name="storage")
-    cost = FloatField(label="Cost: ", validators=[DataRequired()], name="cost", default=.0)
+    cost = FloatField(label="Cost: ", name="cost", default=.0)
 
     submit = SubmitField("Save", render_kw={"class": "btn btn-primary"})
 

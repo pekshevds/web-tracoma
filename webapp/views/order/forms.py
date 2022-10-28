@@ -12,7 +12,7 @@ class OrderForm(ModelForm):
     class Meta:
         model = Order
 
-    id = IntegerField(label="Id: ", validators=[DataRequired()], name="id", default=0)
+    id = IntegerField(label="Id: ", validators=[DataRequired()], name="id", default=-1)
     title = StringField(label="Title: ", name="title", default="")
 
     carrier_id = IntegerField(label="Carrier: ", validators=[DataRequired()], name="carrier")

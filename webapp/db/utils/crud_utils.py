@@ -32,15 +32,14 @@ def update_or_create_item_from_form(form, get_func: Callable, new_object_class: 
     """
     updates an existing record in the database or creates a new record
     """
-
     id = form.id.data
-    if id:
+    if id and (id > 0):
         new_object = get_func(id=id)
         form.populate_obj(new_object)
     else:
         new_object = new_object_class()
         form.populate_obj(new_object)
-        new_object.id = new_object
+        new_object.id = None
 
     db.session.add(new_object)
 

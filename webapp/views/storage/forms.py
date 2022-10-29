@@ -12,7 +12,7 @@ class StorageForm(ModelForm):
     class Meta:
         model = Storage
 
-    id = IntegerField(label="Id: ", validators=[DataRequired()], name="id", default=-1)
+    id = IntegerField(label="Id: ", name="id")
     title = StringField(label="Title: ", validators=[DataRequired()], name="title", default="")
     is_internal = BooleanField(label="Internal: ", name="is_internal", default=False)
     is_employee = BooleanField(label="Employee: ", name="is_employee", default=False)

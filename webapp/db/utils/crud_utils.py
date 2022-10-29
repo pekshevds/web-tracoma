@@ -33,7 +33,7 @@ def update_or_create_item_from_form(form, get_func: Callable, new_object_class: 
     updates an existing record in the database or creates a new record
     """
     id = form.id.data
-    if id and (id > 0):
+    if id:
         new_object = get_func(id=id)
         form.populate_obj(new_object)
     else:

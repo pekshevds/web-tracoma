@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col-12">
-            {% if form.id.data > 0 %}
+            {% if form.id.data %}
             <a href="{{ url_for('new_receipt_attachment', receipt_id=form.id.data) }}">new attachment</a>
             {% else %}
             <p>new attachment</p>

@@ -18,7 +18,7 @@ def get_companies():
 
 
 def get_storage_by_id(id: int):
-    return Storage.query.get(id)
+    return Storage.query.filter(Storage.id == id).first()
 
 
 def get_carriers():

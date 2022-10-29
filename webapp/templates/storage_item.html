@@ -17,18 +17,14 @@ web-tracoma/storage
         {{ form.csrf_token }}
         <div class="row">
 
+            {% include 'including_id.html' %}
+
             <div class="input-group input-group-sm mb-3 visually-hidden">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.kind.label() }}</span>
                 <input type="text" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-sm" name="kind" value="{{ form.kind.data }}">
             </div>
-
-            <div class="input-group input-group-sm mb-3 visually-hidden">
-                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.id.label() }}</span>
-                <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm" name="id" value="{{ form.id.data }}">
-            </div>
-
+            
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.title.label() }}</span>
                 <input type="text" required class="form-control" aria-label="Sizing example input"

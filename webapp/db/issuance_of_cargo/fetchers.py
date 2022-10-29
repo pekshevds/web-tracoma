@@ -7,10 +7,7 @@ def get_issuances():
 
 
 def get_issuance_by_id(id: int):
-    try:
-        return IssuanceOfCargo.query.get(id)
-    except (RuntimeError):
-        return None
+    return IssuanceOfCargo.query.filter(IssuanceOfCargo.id == id).first()
 
 
 def get_attachments(issuance_id: int):
@@ -18,7 +15,4 @@ def get_attachments(issuance_id: int):
 
 
 def get_attachment_by_id(id: int):
-    try:
-        return AttachmentIssuanceOfCargo.query.get(id)
-    except (RuntimeError):
-        return None
+    return AttachmentIssuanceOfCargo.query.filter(AttachmentIssuanceOfCargo.id == id).first()

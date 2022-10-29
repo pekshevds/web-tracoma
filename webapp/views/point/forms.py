@@ -12,7 +12,8 @@ class PointForm(ModelForm):
     class Meta:
         model = Point
 
-    id = IntegerField(label="Id: ", name="id", default=-1)
+    id = IntegerField(label="Id: ", name="id")
     title = StringField(label="Title: ", validators=[DataRequired()], name="title", default="")
     short = StringField(label="Short: ", name="short", default="")
+
     submit = SubmitField("Save", render_kw={"class": "btn btn-primary"}, name='save')

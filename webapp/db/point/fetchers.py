@@ -6,7 +6,4 @@ def get_points():
 
 
 def get_point_by_id(id: int):
-    try:
-        return Point.query.get(id)
-    except (RuntimeError):
-        return None
+    return Point.query.filter(Point.id == id).first()

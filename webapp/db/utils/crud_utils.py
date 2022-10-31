@@ -56,8 +56,11 @@ def delete_item(id: int, get_func: Callable) -> bool:
     """
     item = get_func(id=id)
     if item:
-        item.is_deleted = True
-        db.session.add(item)
+        if hasattr(item, "is_deleted"):
+            item.is_deleted = True
+            db.session.add(item)
+        else:
+            db.session.delete(item)
         try:
             db.session.commit()
         except SQLAlchemyError:
@@ -65,4 +68,4 @@ def delete_item(id: int, get_func: Callable) -> bool:
     return True
 
 
-__all__ = ['update_or_create_item', 'delete_item']
+__all__ = ['update_or_create_item', 'delete_item', 'update_or_create_item_from_form']

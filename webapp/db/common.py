@@ -14,3 +14,9 @@ class Directory(object):
     @property
     def is_new(self):
         return self.id == (None)
+
+
+class Attachment(object):
+    id = db.Column(db.Integer, primary_key=True)
+    create_date = db.Column(db.DateTime, default=datetime.now())
+    update_date = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now)

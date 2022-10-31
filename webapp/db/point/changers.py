@@ -12,5 +12,5 @@ def delete_point(id: int):
     return delete_item(id=id, get_func=get_point_by_id)
 
 
-def save_storage(form):
+def save_point(form):
     return update_or_create_item_from_form(form, get_point_by_id, Point)

@@ -49,12 +49,12 @@ web-tracoma/points
     <div class="row">
 
         <div class="col-1">            
-            <a href="{{ url_for('point.show_point', point_id=point.id) }}">{{ point.id }}</a>
+            <a href="{{ url_for('point.show_point', id=point.id) }}">{{ point.id }}</a>
             {% if point.is_deleted %}<img src="{{ url_for('static', filename='images/trash.png') }}" width="32" height="32" alt="">{% endif %}
         </div>
 
         <div class="col-5">
-            <a href="{{ url_for('point.show_point', point_id=point.id) }}">{{ point.title }}</a>
+            <a href="{{ url_for('point.show_point', id=point.id) }}">{{ point.title }}</a>
         </div>
 
         <div class="col-1">
@@ -62,7 +62,7 @@ web-tracoma/points
         </div>
        
         <div class="col-1">
-            <a href="{{ url_for('point.delete_point', point_id=point.id) }}">x</a>
+            <a href="{{ url_for('point.delete_point', id=point.id) }}">x</a>
         </div>
     </div>
     {% endfor %}

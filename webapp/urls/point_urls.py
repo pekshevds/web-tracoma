@@ -1,11 +1,12 @@
-from webapp.views.point import (delete_point_view, points_view, point_view,
-                                new_point_view, save_point_view)
+from flask.blueprints import Blueprint
+from webapp.views.point import PointView
 
 
-def add_point_urls(app):
-    prefix = "/points"
-    app.add_url_rule(f"{prefix}", endpoint="points", view_func=points_view)
-    app.add_url_rule(f"{prefix}/show/<int:point_id>", endpoint="show_point", view_func=point_view)
-    app.add_url_rule(f"{prefix}/new", endpoint="new_point", view_func=new_point_view)
-    app.add_url_rule(f"{prefix}/delete/<int:point_id>", endpoint="delete_point", view_func=delete_point_view)
-    app.add_url_rule(f"{prefix}/save", endpoint="save_point", view_func=save_point_view, methods=['POST'])
+def get_point_blueprints():
+    point = Blueprint(name='point', import_name='point', url_prefix='/points')
+    point.add_url_rule('/', endpoint='points', view_func=PointView.points_view)
+    point.add_url_rule('/show/<int:point_id>', endpoint='show_point', view_func=PointView.as_view('show_point'))
+    point.add_url_rule('/new', endpoint='new_point', view_func=PointView.as_view('new_point'))
+    point.add_url_rule('/delete/<int:point_id>', endpoint='delete_point', view_func=PointView.delete_point_view)
+    point.add_url_rule('/save', view_func=PointView.as_view('save_point'))
+    return point

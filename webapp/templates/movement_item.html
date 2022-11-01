@@ -2,7 +2,7 @@
 
 
 {% block title %}
-web-tracoma/receipt
+web-tracoma/movement
 {% endblock %}
 
 
@@ -11,9 +11,9 @@ web-tracoma/receipt
     {% if form.id.data %}
     <h1>{{ form.title.data }}</h1>
     {% else %}
-    <h1>New order</h1>
+    <h1>New movement</h1>
     {% endif %}
-    <form action="{{ url_for('save_receipt') }}" method="post">
+    <form action="{{ url_for('save_movement') }}" method="post">
         {{ form.csrf_token }}
         <div class="row">
 
@@ -24,13 +24,26 @@ web-tracoma/receipt
             </div>
 
             <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.storage_id.label() }}</span>
+                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.shipper_id.label() }}</span>
 
-                <select class="form-select" aria-label="Default select example" name="storage" required>
+                <select class="form-select" aria-label="Default select example" name="shipper_id" required>
                     <option selected></option>
-                    {% for storage in storages %}
-                    <option {% if storage.id==form.storage_id.data %} selected {% endif %} value="{{ storage.id }}">{{
-                        storage.title }}</option>
+                    {% for shipper in shippers %}
+                    <option {% if shipper.id==form.shipper_id.data %} selected {% endif %} value="{{ shipper.id }}">{{
+                        shipper.title }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.consignee_id.label() }}</span>
+
+                <select class="form-select" aria-label="Default select example" name="consignee_id" required>
+                    <option selected></option>
+                    {% for consignee in consignees %}
+                    <option {% if consignee.id==form.consignee_id.data %} selected {% endif %} value="{{ consignee.id }}">{{
+                        consignee.title }}</option>
                     {% endfor %}
                 </select>
 
@@ -51,6 +64,6 @@ web-tracoma/receipt
         </div>
     </form>
 
-    {% include 'receipt_attachment_list.html' %}
+    {% include 'movement_attachment_list.html' %}
 </div>
 {% endblock %}

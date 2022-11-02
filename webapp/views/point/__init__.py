@@ -1,1 +1,1 @@
-from webapp.views.point.api import PointView
+from webapp.views.point.api import (PointDetailView, PointListView, PointDeleteView)

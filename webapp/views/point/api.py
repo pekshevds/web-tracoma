@@ -4,22 +4,29 @@ from webapp.db.point.fetchers import get_points
 from webapp.db.point.changers import delete_point
 from webapp.views.point.forms import PointForm
 from webapp.views.common import BaseView
+from flask_views.edit import FormView
 
 
-class PointView(BaseView):
+class PointDetailView(BaseView):
     form_class = PointForm
     template_name = 'point_item.html'
-    methods = ['GET', 'POST']
 
     def get_success_url(self):
         return url_for('point.points')
 
-    @staticmethod
-    def points_view():
+
+class PointListView(FormView):
+    template_name = 'point_list.html'
+
+    def get(self, *args, **kwargs):
         return render_template('point_list.html', points=get_points())
 
-    @staticmethod
-    def delete_point_view(point_id: int):
-        if delete_point(id=point_id):
-            return redirect(url_for('point.points'))
+
+class PointDeleteView(FormView):
+    template_name = 'point_list.html'
+
+    def get(self, *args, **kwargs):
+        id = kwargs.get("id", 0)
+        if delete_point(id=id):
+            return render_template('point_list.html', points=get_points())
         return render_template("crud_error.html", content='error on mark point for deleting')

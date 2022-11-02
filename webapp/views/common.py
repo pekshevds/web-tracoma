@@ -1,12 +1,15 @@
 from sqlalchemy.exc import SQLAlchemyError
-from flask import render_template, redirect
+from flask import render_template, redirect, url_for
 from flask_views.edit import FormView
 from webapp.db.common import db
 
 
 class BaseView(FormView):
-
+    success_url_name = ""
     methods = ['GET', 'POST']
+
+    def get_success_url(self):
+        return url_for(self.success_url_name)
 
     def __initial_form_values(self, object: object):
         form = self.get_form()

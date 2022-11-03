@@ -16,7 +16,7 @@ class StorageForm(ModelForm):
     title = StringField(label="Title: ", validators=[DataRequired()], name="title", default="")
     is_internal = BooleanField(label="Internal: ", name="is_internal", default=False)
     is_employee = BooleanField(label="Employee: ", name="is_employee", default=False)
-    kind = IntegerField(label="Kind: ", validators=[DataRequired()], name="kind", default=1)
+    kind = IntegerField(label="Kind: ", name="kind", default=1)
     inn = StringField(label="INN: ", name="inn", default="")
     kpp = StringField(label="KPP: ", name="kpp", default="")
     weight = FloatField(label="Weight: ", name="weight", default=.0)

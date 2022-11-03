@@ -17,7 +17,7 @@ class PointListView(TemplateView):
     template_name = 'point_list.html'
 
     def get(self, *args, **kwargs):
-        return render_template('point_list.html', points=get_points())
+        return render_template(self.template_name, points=get_points())
 
 
 class PointDeleteView(TemplateView):

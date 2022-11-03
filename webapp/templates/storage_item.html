@@ -13,7 +13,7 @@ web-tracoma/storage
     {% else %}
     <h1>New storage</h1>
     {% endif %}
-    <form action="{{ url_for('save_storage') }}" method="post">
+    <form action="{{ url_for('storage.save_storage') }}" method="post">
         {{ form.csrf_token }}
         <div class="row">
 

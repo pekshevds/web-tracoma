@@ -13,25 +13,25 @@ web-tracoma/storages
     
     <div class="row">
         <div class="col-4">
-            <a href="{{ url_for('storages') }}">all storages</a>
+            <a href="{{ url_for('storage.storages') }}">all storages</a>
         </div>
 
         <div class="col-4">
-            <a href="{{ url_for('storages_by_kind', storage_kind=2) }}">companies</a>
+            <a href="{{ url_for('storage.storages_by_kind', storage_kind=2) }}">companies</a>
         </div>
 
         <div class="col-4">
-            <a href="{{ url_for('storages_by_kind', storage_kind=1) }}">persons</a>
+            <a href="{{ url_for('storage.storages_by_kind', storage_kind=1) }}">persons</a>
         </div>        
     </div>
 
     <div class="row">
         <div class="col-6">
-            <a href="{{ url_for('new_storage', storage_kind=2) }}">new company</a>
+            <a href="{{ url_for('storage.new_storage', storage_kind=2) }}">new company</a>
         </div>
 
         <div class="col-6">
-            <a href="{{ url_for('new_storage', storage_kind=1) }}">new person</a>
+            <a href="{{ url_for('storage.new_storage', storage_kind=1) }}">new person</a>
         </div>
     </div>
     
@@ -82,12 +82,12 @@ web-tracoma/storages
     <div class="row">
 
         <div class="col-1">
-            <a href="{{ url_for('show_storage', storage_id=storage.id) }}">{{ storage.id }}</a>
+            <a href="{{ url_for('storage.show_storage', id=storage.id) }}">{{ storage.id }}</a>
             {% if storage.is_deleted %}<img src="{{ url_for('static', filename='images/trash.png') }}" width="32" height="32" alt="">{% endif %}
         </div>
 
         <div class="col-5">
-            <a href="{{ url_for('show_storage', storage_id=storage.id) }}">{{ storage.title }}</a>
+            <a href="{{ url_for('storage.show_storage', id=storage.id) }}">{{ storage.title }}</a>
         </div>
 
         <div class="col-1">
@@ -104,7 +104,7 @@ web-tracoma/storages
             {{ storage.is_employee }}
         </div>
         <div class="col-1">
-            <a href="{{ url_for('delete_storage', storage_id=storage.id) }}">x</a>
+            <a href="{{ url_for('storage.delete_storage', id=storage.id) }}">x</a>
         </div>
     </div>
     {% endfor %}

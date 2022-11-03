@@ -5,6 +5,7 @@ from os.path import abspath
 from webapp.db.common import db
 from webapp.urls.common import add_urls
 from webapp.urls.point_urls import get_point_blueprints
+from webapp.urls.storage_urls import get_storage_blueprints
 
 
 def create_app():
@@ -20,5 +21,6 @@ def create_app():
     migrate = Migrate(app, db, render_as_batch=True)
     add_urls(app)
     app.register_blueprint(get_point_blueprints())
+    app.register_blueprint(get_storage_blueprints())
 
     return app

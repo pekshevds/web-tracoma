@@ -9,5 +9,5 @@ def get_point_blueprints():
     blueprint.add_url_rule('/new', endpoint='new_point', view_func=PointDetailView.as_view('new_point'))
     blueprint.add_url_rule('/delete/<int:id>', endpoint='delete_point',
                            view_func=PointDeleteView.as_view('delete_point'))
-    blueprint.add_url_rule('/save', view_func=PointDetailView.as_view('save_point'))
+    blueprint.add_url_rule('/save', endpoint='save_point', view_func=PointDetailView.as_view('save_point'))
     return blueprint

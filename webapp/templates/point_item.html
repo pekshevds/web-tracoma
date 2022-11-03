@@ -35,8 +35,14 @@ web-tracoma/point
                     </div>
                 </div>
 
-                <div class="input-group input-group-sm mb-3">
-                    {{ form.submit }}
+                <div class="col-1">
+                    <div class="input-group input-group-sm mb-3">
+                        {{ form.submit }}
+                    </div>
+                </div>
+
+                <div class="col-1">
+                    <a class="btn btn-primary btn-sm" href="{{ url_for('point.points') }}" role="button">Close</a>
                 </div>
 
             </div>

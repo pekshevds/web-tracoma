@@ -5,11 +5,11 @@ from webapp.db.common import db
 
 
 class BaseView(FormView):
-    success_url_name = ""
+    self_url_name = ""
     methods = ['GET', 'POST']
 
-    def get_success_url(self):
-        return url_for(self.success_url_name)
+    def get_self_url(self, id):
+        return url_for(self.self_url_name, id=id)
 
     def initial_form_values(self, object: object):
         form = self.get_form()
@@ -37,7 +37,6 @@ class BaseView(FormView):
             new_object = self.get_object_by_id(id=id)
             new_object = self.initial_object_values(new_object, form)
         else:
-            print(form.data)
             new_object = object_class()
             form.populate_obj(new_object)
             new_object.id = None
@@ -46,7 +45,7 @@ class BaseView(FormView):
             db.session.commit()
         except (RuntimeError, SQLAlchemyError):
             return False
-        return True
+        return new_object
 
     def get(self, *args, **kwargs):
         object = self.get_object_by_id(id=kwargs.get("id", 0))
@@ -59,6 +58,7 @@ class BaseView(FormView):
     def post(self, *args, **kwargs):
         form = self.get_form()
         if form.validate_on_submit():
-            if self.save_object(form):
-                return redirect(self.get_success_url())
+            obj = self.save_object(form)
+            if obj:
+                return redirect(self.get_self_url(id=obj.id))
         return render_template(self.template_name, form=form)

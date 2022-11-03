@@ -10,7 +10,7 @@ from flask_views.base import TemplateView
 class StorageDetailView(BaseView):
     form_class = StorageForm
     template_name = 'storage_item.html'
-    success_url_name = 'storage.storages'
+    self_url_name = 'storage.show_storage'
 
     def get(self, *args, **kwargs):
         object = super().get_object_by_id(id=kwargs.get("id", 0))

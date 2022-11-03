@@ -8,13 +8,13 @@ web-tracoma/order attachment
 
 {% block content %}
 <div class="container">
-    
-    <form action="{{ url_for('save_order_attachment') }}" method="post">
+
+    <form action="{{ url_for('order.save_attachment') }}" method="post">
         {{ form.csrf_token }}
         <div class="row">
 
             {% include 'including_id.html' %}
-            
+
             <div class="input-group input-group-sm mb-3 visually-hidden">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.order_id.label() }}</span>
                 <input type="text" class="form-control" aria-label="Sizing example input"
@@ -62,8 +62,14 @@ web-tracoma/order attachment
             </div>
 
             <div class="row">
-                <div class="input-group input-group-sm mb-3">
-                    {{ form.submit }}
+                <div class="col-1">
+                    <div class="input-group input-group-sm mb-3">
+                        {{ form.submit }}
+                    </div>
+                </div>
+
+                <div class="col-1">
+                    <a class="btn btn-primary btn-sm" href="{{ url_for('order.show_order', id=form.order_id.data) }}" role="button">Close</a>
                 </div>
             </div>
     </form>

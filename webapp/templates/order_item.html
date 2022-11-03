@@ -13,7 +13,7 @@ web-tracoma/order
     {% else %}
     <h1>New order</h1>
     {% endif %}
-    <form action="{{ url_for('save_order') }}" method="post">
+    <form action="{{ url_for('order.save_order') }}" method="post">
         {{ form.csrf_token }}
         <div class="row">
 
@@ -160,8 +160,14 @@ web-tracoma/order
             </div>
             <div class="row">
                 
-                <div class="input-group input-group-sm mb-3">
-                    {{ form.submit }}
+                <div class="col-1">
+                    <div class="input-group input-group-sm mb-3">
+                        {{ form.submit }}
+                    </div>
+                </div>
+
+                <div class="col-1">
+                    <a class="btn btn-primary btn-sm" href="{{ url_for('order.orders') }}" role="button">Close</a>
                 </div>
 
             </div>

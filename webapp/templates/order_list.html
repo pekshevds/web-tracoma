@@ -13,13 +13,13 @@ web-tracoma/orders
     
     <div class="row">
         <div class="col-12">
-            <a href="{{ url_for('orders') }}">all orders</a>
+            <a href="{{ url_for('order.orders') }}">all orders</a>
         </div>       
     </div>
 
     <div class="row">
         <div class="col-12">
-            <a href="{{ url_for('new_order') }}">new order</a>
+            <a href="{{ url_for('order.new_order') }}">new order</a>
         </div>        
     </div>
     
@@ -74,12 +74,12 @@ web-tracoma/orders
     <div class="row">
 
         <div class="col-1">
-            <a href="{{ url_for('show_order', order_id=order.id) }}">{{ order.id }}</a>
+            <a href="{{ url_for('order.show_order', id=order.id) }}">{{ order.id }}</a>
             {% if order.is_deleted %}<img src="{{ url_for('static', filename='images/trash.png') }}" width="32" height="32" alt="">{% endif %}
         </div>
 
         <div class="col-3">
-            <a href="{{ url_for('show_order', order_id=order.id) }}">{{ order }}</a>
+            <a href="{{ url_for('order.show_order', id=order.id) }}">{{ order }}</a>
         </div>
 
         <div class="col-1">
@@ -103,7 +103,7 @@ web-tracoma/orders
         </div>
               
         <div class="col-1">
-            <a href="{{ url_for('delete_order', order_id=order.id) }}">x</a>
+            <a href="{{ url_for('order.delete_order', id=order.id) }}">x</a>
         </div>
     </div>
     {% endfor %}

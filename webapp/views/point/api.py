@@ -10,7 +10,7 @@ from flask_views.base import TemplateView
 class PointDetailView(BaseView):
     form_class = PointForm
     template_name = 'point_item.html'
-    success_url_name = 'point.points'
+    self_url_name = 'point.show_point'
 
 
 class PointListView(TemplateView):

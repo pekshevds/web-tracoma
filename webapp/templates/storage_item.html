@@ -24,7 +24,7 @@ web-tracoma/storage
                 <input type="text" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-sm" name="kind" value="{{ form.kind.data }}">
             </div>
-            
+
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.title.label() }}</span>
                 <input type="text" required class="form-control" aria-label="Sizing example input"
@@ -78,10 +78,18 @@ web-tracoma/storage
                         </div>
                     </div>
 
-                    <div class="input-group input-group-sm mb-3">
-                        {{ form.submit }}
-                    </div>
+                    <div class="row">
+                        <div class="col-1">
+                            <div class="input-group input-group-sm mb-3">
+                                {{ form.submit }}
+                            </div>
+                        </div>
 
+                        <div class="col-1">
+                            <a class="btn btn-primary btn-sm" href="{{ url_for('storage.storages') }}"
+                                role="button">Close</a>
+                        </div>
+                    </div>
                 </div>
     </form>
 </div>

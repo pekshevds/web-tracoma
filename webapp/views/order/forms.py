@@ -34,6 +34,8 @@ class OrderForm(ModelForm):
     declared = FloatField(label="Declared: ", name="declared", default=.0)
     desc = StringField(label="Description: ", name="desc", default="")
 
+    distance = IntegerField(label="Distance: ", name="distance", default=0)
+
     submit = SubmitField("Save", render_kw={"class": "btn btn-primary"})
 
 

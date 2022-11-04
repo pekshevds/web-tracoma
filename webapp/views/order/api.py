@@ -8,6 +8,8 @@ from webapp.views.order.forms import OrderForm, AttachmentForm
 from webapp.views.common import BaseView
 from flask_views.base import TemplateView
 
+from webapp.db.utils.route_utils import fetch_distance_between_cities
+
 
 class OrderDetailView(BaseView):
     form_class = OrderForm
@@ -26,6 +28,10 @@ class OrderDetailView(BaseView):
                                counteragents=get_counteragents(),
                                points=get_points(),
                                attachments=get_attachments(order_id=order_id))
+
+    def pre_save(self, object: object) -> None:
+        object.distance = fetch_distance_between_cities(point_a=object.point_from.location,
+                                                        point_b=object.point_to.location)        
 
 
 class OrderListView(TemplateView):

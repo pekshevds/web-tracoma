@@ -34,7 +34,24 @@ web-tracoma/point
                             aria-describedby="inputGroup-sizing-sm" name="short" value="{{ form.short.data }}">
                     </div>
                 </div>
-
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.latitude.label() }}</span>
+                        <input type="number" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" name="latitude" value="{{ form.latitude.data }}">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.longitude.label() }}</span>
+                        <input type="number" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" name="longitude" value="{{ form.longitude.data }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-1">
                     <div class="input-group input-group-sm mb-3">
                         {{ form.submit }}
@@ -44,8 +61,8 @@ web-tracoma/point
                 <div class="col-1">
                     <a class="btn btn-primary btn-sm" href="{{ url_for('point.points') }}" role="button">Close</a>
                 </div>
-
             </div>
+
     </form>    
 </div>
 {% endblock %}

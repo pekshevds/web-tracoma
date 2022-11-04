@@ -7,3 +7,7 @@ def get_points():
 
 def get_point_by_id(id: int):
     return Point.query.filter(Point.id == id).first()
+
+
+def get_point_by_name(name: str):
+    return Point.query.filter(Point.title == name).first()

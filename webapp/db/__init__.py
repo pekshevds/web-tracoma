@@ -1,5 +1,6 @@
 from webapp.db.storage.models import Storage
 from webapp.db.point.models import Point
+from webapp.db.route.models import Route
 from webapp.db.order.models import Order
 from webapp.db.receipt_of_cargo.models import ReceiptOfCargo
 from webapp.db.cargo_movement.models import CargoMovement

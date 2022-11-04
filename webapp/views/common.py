@@ -18,7 +18,7 @@ class BaseView(FormView):
                 form[key].data = getattr(object, key)
         return form
 
-    def initial_object_values(self, object: object, form, excluded_columns: list = ['is_deleted']):
+    def initial_object_from_form_values(self, object: object, form, excluded_columns: list = ['is_deleted']):
         for key in form.data.keys():
             if key in excluded_columns:
                 continue
@@ -30,16 +30,20 @@ class BaseView(FormView):
         object_class = self.form_class.Meta.model
         return object_class.query.filter(object_class.id == id).first()
 
+    def pre_save(self, obj: object) -> None:
+        pass
+
     def save_object(self, form) -> bool:
         object_class = self.form_class.Meta.model
         id = form.id.data
         if id:
             new_object = self.get_object_by_id(id=id)
-            new_object = self.initial_object_values(new_object, form)
+            new_object = self.initial_object_from_form_values(new_object, form)
         else:
             new_object = object_class()
             form.populate_obj(new_object)
             new_object.id = None
+        self.pre_save(new_object)
         db.session.add(new_object)
         try:
             db.session.commit()

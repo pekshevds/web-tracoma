@@ -7,10 +7,7 @@ def get_movements():
 
 
 def get_movement_by_id(id: int):
-    try:
-        return CargoMovement.query.get(id)
-    except (RuntimeError):
-        return None
+    return CargoMovement.query.filter(CargoMovement.id == id).first()
 
 
 def get_attachments(movement_id: int):
@@ -18,7 +15,4 @@ def get_attachments(movement_id: int):
 
 
 def get_attachment_by_id(id: int):
-    try:
-        return AttachmentCargoMovement.query.get(id)
-    except (RuntimeError):
-        return None
+    return AttachmentCargoMovement.query.filter(AttachmentCargoMovement.id == id).first()

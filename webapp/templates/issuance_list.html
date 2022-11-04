@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+web-tracoma/issuances
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <h1>issuances</h1>
+    
+    <div class="row">
+        <div class="col-12">
+            <a href="{{ url_for('issuances') }}">all issuances</a>
+        </div>       
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <a href="{{ url_for('new_issuance') }}">new issuance</a>
+        </div>        
+    </div>
+    
+
+    <div class="row">
+
+        <div class="col-1">
+            <h5>
+                id
+            </h5>
+        </div>
+
+        <div class="col-3">
+            <h5>
+                title
+            </h5>
+        </div>
+
+        <div class="col-1">
+            <h5>
+                storage
+            </h5>
+        </div>
+                
+        <div class="col-1">
+            <h5>
+                weight
+            </h5>
+        </div>
+
+        <div class="col-1">
+            <h5>
+                volume
+            </h5>
+        </div>
+
+        <div class="col-1">
+            <h5>
+                total
+            </h5>
+        </div>      
+        
+    </div>
+    
+    {% if issuances %}
+        {% for issuance in issuances %}
+        <div class="row">
+
+            <div class="col-1">
+                <a href="{{ url_for('show_issuance', issuance_id=issuance.id) }}">{{ issuance.id }}</a>
+                {% if issuance.is_deleted %}<img src="{{ url_for('static', filename='images/trash.png') }}" width="32" height="32" alt="">{% endif %}
+            </div>
+
+            <div class="col-3">
+                <a href="{{ url_for('show_issuance', issuance_id=issuance.id) }}">{{ issuance }}</a>
+            </div>
+
+            <div class="col-1">
+                {{ issuance.storage }}
+            </div>
+            
+            <div class="col-1">
+                {{ issuance.weight }}
+            </div>
+
+            <div class="col-1">
+                {{ issuance.volume }}
+            </div>
+
+            <div class="col-1">
+                {{ issuance.total }}
+            </div>
+                
+            <div class="col-1">
+                <a href="{{ url_for('delete_issuance', issuance_id=issuance.id) }}">x</a>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% endblock %}

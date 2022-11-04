@@ -1,0 +1,7 @@
+{% if form.id.data %}
+<div class="input-group input-group-sm mb-3 visually-hidden">
+    <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.id.label() }}</span>
+    <input type="text" class="form-control" aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-sm" name="id" value="{{ form.id.data }}">
+</div>
+{% endif %}

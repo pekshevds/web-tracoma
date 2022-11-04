@@ -13,10 +13,10 @@ class ReceiptForm(ModelForm):
     class Meta:
         model = ReceiptOfCargo
 
-    id = IntegerField(label="Id: ", validators=[DataRequired()], name="id", default=-1)
+    id = IntegerField(label="Id: ", name="id")
     title = StringField(label="Title: ", name="title", default="")
     storage_id = IntegerField(label="Storage: ", validators=[DataRequired()], name="storage")
-    cost = FloatField(label="Cost: ", validators=[DataRequired()], name="cost", default=.0)
+    cost = FloatField(label="Cost: ", name="cost", default=.0)
 
     submit = SubmitField("Save", render_kw={"class": "btn btn-primary"})
 
@@ -25,7 +25,7 @@ class AttachmentForm(ModelForm):
     class Meta:
         model = AttachmentReceiptOfCargo
 
-    id = IntegerField(label="Id: ", validators=[DataRequired()], name="id", default=-1)
+    id = IntegerField(label="Id: ", name="id")
     receipt_id = IntegerField(label="Receipt_id: ", validators=[DataRequired()], name="receipt_id")
     order_id = IntegerField(label="Order: ", validators=[DataRequired()], name="order")
 

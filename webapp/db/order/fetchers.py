@@ -7,10 +7,7 @@ def get_orders():
 
 
 def get_order_by_id(id: int):
-    try:
-        return Order.query.get(id)
-    except (RuntimeError):
-        return None
+    return Order.query.filter(Order.id == id).first()
 
 
 def get_attachments(order_id: int):
@@ -18,7 +15,4 @@ def get_attachments(order_id: int):
 
 
 def get_attachment_by_id(id: int):
-    try:
-        return Attachment.query.get(id)
-    except (RuntimeError):
-        return None
+    return Attachment.query.filter(Attachment.id == id).first()

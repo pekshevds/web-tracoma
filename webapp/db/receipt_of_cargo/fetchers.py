@@ -7,10 +7,7 @@ def get_receipts():
 
 
 def get_receipt_by_id(id: int):
-    try:
-        return ReceiptOfCargo.query.get(id)
-    except (RuntimeError):
-        return None
+    return ReceiptOfCargo.query.filter(ReceiptOfCargo.id == id).first()
 
 
 def get_attachments(receipt_id: int):
@@ -18,7 +15,4 @@ def get_attachments(receipt_id: int):
 
 
 def get_attachment_by_id(id: int):
-    try:
-        return AttachmentReceiptOfCargo.query.get(id)
-    except (RuntimeError):
-        return None
+    return AttachmentReceiptOfCargo.query.filter(AttachmentReceiptOfCargo.id == id).first()

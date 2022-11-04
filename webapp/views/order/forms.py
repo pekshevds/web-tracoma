@@ -13,7 +13,7 @@ class OrderForm(ModelForm):
     class Meta:
         model = Order
 
-    id = IntegerField(label="Id: ", validators=[DataRequired()], name="id", default=-1)
+    id = IntegerField(label="Id: ", name="id")
     title = StringField(label="Title: ", name="title", default="")
 
     carrier_id = IntegerField(label="Carrier: ", validators=[DataRequired()], name="carrier")
@@ -41,7 +41,7 @@ class AttachmentForm(ModelForm):
     class Meta:
         model = Attachment
 
-    id = IntegerField(label="Id: ", validators=[DataRequired()], name="id", default=-1)
+    id = IntegerField(label="Id: ", name="id")
     order_id = IntegerField(label="Order_id: ", validators=[DataRequired()], name="order_id")
 
     weight = FloatField(label="Weight: ", name="weight", default=.0)

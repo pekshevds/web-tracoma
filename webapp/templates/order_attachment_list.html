@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-12">
             {% if form.id.data %}
-            <a href="{{ url_for('new_order_attachment', order_id=form.id.data) }}">new attachment</a>
+            <a href="{{ url_for('order.new_attachment', order_id=form.id.data) }}">new attachment</a>
             {% else %}
             <p>new attachment</p>
             {% endif %}
@@ -63,11 +63,11 @@
         <div class="row">
 
             <div class="col-1">
-                <a href="{{ url_for('show_order_attachment', attachment_id=attachment.id) }}">{{ attachment.id }}</a>                
+                <a href="{{ url_for('order.show_attachment', id=attachment.id) }}">{{ attachment.id }}</a>                
             </div>
 
             <div class="col-5">
-                <a href="{{ url_for('show_order_attachment', attachment_id=attachment.id) }}">{{ attachment }}</a>
+                <a href="{{ url_for('order.show_attachment', id=attachment.id) }}">{{ attachment }}</a>
             </div>
 
             <div class="col-1">
@@ -87,7 +87,7 @@
                 {{ attachment.depth }}
             </div>
             <div class="col-1">
-                <a href="{{ url_for('delete_order_attachment', attachment_id=attachment.id) }}">x</a>
+                <a href="{{ url_for('order.delete_attachment', id=attachment.id) }}">x</a>
             </div>
         </div>
         {% endfor %}

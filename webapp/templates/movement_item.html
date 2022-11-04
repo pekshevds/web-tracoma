@@ -13,7 +13,7 @@ web-tracoma/movement
     {% else %}
     <h1>New movement</h1>
     {% endif %}
-    <form action="{{ url_for('save_movement') }}" method="post">
+    <form action="{{ url_for('movement.save_movement') }}" method="post">
         {{ form.csrf_token }}
         <div class="row">
 
@@ -53,8 +53,18 @@ web-tracoma/movement
 
 
 
-            <div class="input-group input-group-sm mb-3">
-                {{ form.submit }}
+            <div class="row">
+                
+                <div class="col-1">
+                    <div class="input-group input-group-sm mb-3">
+                        {{ form.submit }}
+                    </div>
+                </div>
+
+                <div class="col-1">
+                    <a class="btn btn-primary btn-sm" href="{{ url_for('movement.movements') }}" role="button">Close</a>
+                </div>
+
             </div>
 
         </div>

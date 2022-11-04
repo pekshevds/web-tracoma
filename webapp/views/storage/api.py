@@ -1,41 +1,42 @@
 from flask import render_template, redirect, url_for
-from webapp.db.storage.fetchers import get_storages, get_storages_by_kind, get_storage_by_id
-from webapp.db.storage.changers import delete_storage, save_storage
+
+from webapp.db.storage.fetchers import get_storages, get_storages_by_kind
+from webapp.db.storage.changers import delete_storage
 from webapp.views.storage.forms import StorageForm
-from webapp.db.common import db
+from webapp.views.common import BaseView
+from flask_views.base import TemplateView
 
 
-def storages_view():
-    return render_template('storage_list.html', storages=get_storages())
+class StorageDetailView(BaseView):
+    form_class = StorageForm
+    template_name = 'storage_item.html'
+    self_url_name = 'storage.show_storage'
+
+    def get(self, *args, **kwargs):
+        object = super().get_object_by_id(id=kwargs.get("id", 0))
+        if object:
+            form = super().initial_form_values(object)
+        else:
+            form = self.get_form()
+            form.kind.data = kwargs.get("storage_kind", 2)
+        return render_template(self.template_name, form=form)
 
 
-def storages_by_kind_view(storage_kind: int):
-    return render_template('storage_list.html', storages=get_storages_by_kind(kind=storage_kind))
+class StorageListView(TemplateView):
+    template_name = 'storage_list.html'
+
+    def get(self, *args, **kwargs):
+        storage_kind = kwargs.get("storage_kind", 0)
+        if storage_kind:
+            return render_template(self.template_name, storages=get_storages_by_kind(kind=storage_kind))
+        return render_template(self.template_name, storages=get_storages())
 
 
-def storage_view(storage_id: int):
-    storage = get_storage_by_id(id=storage_id)
-    form = StorageForm(obj=storage)
+class StorageDeleteView(TemplateView):
+    success_url_name = 'storage.storages'
 
-    return render_template('storage_item.html', form=form)
-
-
-def new_storage_view(storage_kind: int):
-    form = StorageForm()
-    form.kind.data = storage_kind
-    return render_template('storage_item.html', form=form)
-
-
-def save_storage_view():
-    form = StorageForm()
-    if form.validate_on_submit():
-        if save_storage(form):
-            return redirect(url_for('storages'))
-        return render_template("crud_error.html", content='error on create or update storage info')
-    return render_template("crud_error.html", content='error on validation')
-
-
-def delete_storage_view(storage_id: int):
-    if delete_storage(id=storage_id):
-        return redirect(url_for('storages'))
-    return render_template("crud_error.html", content='error on mark storage for deleting')
+    def get(self, *args, **kwargs):
+        id = kwargs.get("id", 0)
+        if delete_storage(id=id):
+            return redirect(url_for(self.success_url_name))
+        return render_template("crud_error.html", content='error on mark point for deleting')

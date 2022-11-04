@@ -1,10 +1,14 @@
-import imp
 from flask import Flask
 from flask_migrate import Migrate
 from os.path import abspath
 from webapp.db.common import db
 from webapp.urls.common import add_urls
 from webapp.urls.point_urls import get_point_blueprints
+from webapp.urls.storage_urls import get_storage_blueprints
+from webapp.urls.order_urls import get_order_blueprints
+from webapp.urls.receipt_urls import get_receipt_blueprints
+from webapp.urls.movement_urls import get_movement_blueprints
+from webapp.urls.issuance_urls import get_issuance_blueprints
 
 
 def create_app():
@@ -20,5 +24,10 @@ def create_app():
     migrate = Migrate(app, db, render_as_batch=True)
     add_urls(app)
     app.register_blueprint(get_point_blueprints())
+    app.register_blueprint(get_storage_blueprints())
+    app.register_blueprint(get_order_blueprints())
+    app.register_blueprint(get_receipt_blueprints())
+    app.register_blueprint(get_movement_blueprints())
+    app.register_blueprint(get_issuance_blueprints())
 
     return app

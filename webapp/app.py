@@ -8,6 +8,7 @@ from webapp.urls.point_urls import get_point_blueprints
 from webapp.urls.storage_urls import get_storage_blueprints
 from webapp.urls.order_urls import get_order_blueprints
 from webapp.urls.receipt_urls import get_receipt_blueprints
+from webapp.urls.movement_urls import get_movement_blueprints
 
 
 def create_app():
@@ -26,5 +27,6 @@ def create_app():
     app.register_blueprint(get_storage_blueprints())
     app.register_blueprint(get_order_blueprints())
     app.register_blueprint(get_receipt_blueprints())
+    app.register_blueprint(get_movement_blueprints())
 
     return app

@@ -13,13 +13,13 @@ web-tracoma/movements
     
     <div class="row">
         <div class="col-12">
-            <a href="{{ url_for('movements') }}">all movements</a>
+            <a href="{{ url_for('movement.movements') }}">all movements</a>
         </div>       
     </div>
 
     <div class="row">
         <div class="col-12">
-            <a href="{{ url_for('new_movement') }}">new movement</a>
+            <a href="{{ url_for('movement.new_movement') }}">new movement</a>
         </div>        
     </div>
     
@@ -74,12 +74,12 @@ web-tracoma/movements
         <div class="row">
 
             <div class="col-1">
-                <a href="{{ url_for('show_movement', movement_id=movement.id) }}">{{ movement.id }}</a>
+                <a href="{{ url_for('movement.show_movement', id=movement.id) }}">{{ movement.id }}</a>
                 {% if movement.is_deleted %}<img src="{{ url_for('static', filename='images/trash.png') }}" width="32" height="32" alt="">{% endif %}
             </div>
 
             <div class="col-3">
-                <a href="{{ url_for('show_movement', movement_id=movement.id) }}">{{ movement }}</a>
+                <a href="{{ url_for('movement.show_movement', id=movement.id) }}">{{ movement }}</a>
             </div>
 
             <div class="col-1">
@@ -103,7 +103,7 @@ web-tracoma/movements
             </div>
                 
             <div class="col-1">
-                <a href="{{ url_for('delete_movement', movement_id=movement.id) }}">x</a>
+                <a href="{{ url_for('movement.delete_movement', id=movement.id) }}">x</a>
             </div>
         </div>
         {% endfor %}

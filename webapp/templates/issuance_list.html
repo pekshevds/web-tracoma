@@ -13,13 +13,13 @@ web-tracoma/issuances
     
     <div class="row">
         <div class="col-12">
-            <a href="{{ url_for('issuances') }}">all issuances</a>
+            <a href="{{ url_for('issuance.issuances') }}">all issuances</a>
         </div>       
     </div>
 
     <div class="row">
         <div class="col-12">
-            <a href="{{ url_for('new_issuance') }}">new issuance</a>
+            <a href="{{ url_for('issuance.new_issuance') }}">new issuance</a>
         </div>        
     </div>
     
@@ -69,12 +69,12 @@ web-tracoma/issuances
         <div class="row">
 
             <div class="col-1">
-                <a href="{{ url_for('show_issuance', issuance_id=issuance.id) }}">{{ issuance.id }}</a>
+                <a href="{{ url_for('issuance.show_issuance', id=issuance.id) }}">{{ issuance.id }}</a>
                 {% if issuance.is_deleted %}<img src="{{ url_for('static', filename='images/trash.png') }}" width="32" height="32" alt="">{% endif %}
             </div>
 
             <div class="col-3">
-                <a href="{{ url_for('show_issuance', issuance_id=issuance.id) }}">{{ issuance }}</a>
+                <a href="{{ url_for('issuance.show_issuance', id=issuance.id) }}">{{ issuance }}</a>
             </div>
 
             <div class="col-1">
@@ -94,7 +94,7 @@ web-tracoma/issuances
             </div>
                 
             <div class="col-1">
-                <a href="{{ url_for('delete_issuance', issuance_id=issuance.id) }}">x</a>
+                <a href="{{ url_for('issuance.delete_issuance', id=issuance.id) }}">x</a>
             </div>
         </div>
         {% endfor %}

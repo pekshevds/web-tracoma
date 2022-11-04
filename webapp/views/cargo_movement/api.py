@@ -60,7 +60,7 @@ class AttachmentMovementDetailView(BaseView):
 
 
 class AttachmentMovementListView(TemplateView):
-    template_name = 'receipt_attachment_list.html'
+    template_name = 'movement_attachment_list.html'
 
     def get(self, *args, **kwargs):
         movement_id = kwargs.get("movement_id", 0)

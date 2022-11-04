@@ -1,80 +1,77 @@
 from flask import render_template, redirect, url_for
 
-from webapp.db.issuance_of_cargo.changers import delete_issuance, save_issuance, delete_attachment, save_attachment
-from webapp.db.issuance_of_cargo.fetchers import get_issuances, get_issuance_by_id, get_attachment_by_id
-from webapp.db.storage.fetchers import get_storages
 from webapp.db.order.fetchers import get_orders
+from webapp.db.storage.fetchers import get_storages
+from webapp.db.issuance_of_cargo.fetchers import get_issuances, get_attachments, get_attachment_by_id
+from webapp.db.issuance_of_cargo.changers import delete_issuance, delete_attachment
 from webapp.views.issuance_of_cargo.forms import IssuanceForm, AttachmentForm
-from webapp.views.errors import (get_tempale_error_on_create_or_update,
-                                 get_tempale_error_on_validation,
-                                 get_tempale_error_on_mark_for_deleting)
+from webapp.views.common import BaseView
+from flask_views.base import TemplateView
 
 
-def issuances_view():
-    return render_template('issuance_list.html', issuances=get_issuances())
+class IssuanceDetailView(BaseView):
+    form_class = IssuanceForm
+    template_name = 'issuance_item.html'
+    self_url_name = 'issuance.show_issuance'
+
+    def get(self, *args, **kwargs):
+        issuance_id = kwargs.get("id", 0)
+        object = super().get_object_by_id(id=issuance_id)
+        if object:
+            form = super().initial_form_values(object)
+        else:
+            form = self.get_form()
+        return render_template(self.template_name, form=form,
+                               storages=get_storages(),
+                               attachments=get_attachments(issuance_id=issuance_id))
 
 
-def issuance_view(issuance_id: int):
-    issuance = get_issuance_by_id(id=issuance_id)
-    form = IssuanceForm(obj=issuance)
-    return render_template('issuance_item.html', form=form,
-                           storages=get_storages(),
-                           attachments=issuance.attachments)
+class IssuanceListView(TemplateView):
+    template_name = 'issuance_list.html'
+
+    def get(self, *args, **kwargs):
+        return render_template(self.template_name, issuances=get_issuances())
 
 
-def new_issuance_view():
-    form = IssuanceForm()
-    return render_template('issuance_item.html', form=form,
-                           storages=get_storages(),
-                           attachments=None)
+class IssuanceDeleteView(TemplateView):
+    success_url_name = 'issuance.issuances'
+
+    def get(self, *args, **kwargs):
+        id = kwargs.get("id", 0)
+        if delete_issuance(id=id):
+            return redirect(url_for(self.success_url_name))
+        return render_template("crud_error.html", content='error on mark point for deleting')
 
 
-def save_issuance_view():
-    form = IssuanceForm()
-    if form.validate_on_submit():
-        if save_issuance(form):
-            return redirect(url_for('issuances'))
-        return get_tempale_error_on_create_or_update(form.errors)
-    return get_tempale_error_on_validation(form.errors)
+class AttachmentIssuanceDetailView(BaseView):
+    form_class = AttachmentForm
+    template_name = 'issuance_attachment_item.html'
+    self_url_name = 'issuance.show_attachment'
+
+    def get(self, *args, **kwargs):
+        object = self.get_object_by_id(id=kwargs.get("id", 0))
+        if object:
+            form = self.initial_form_values(object)
+        else:
+            form = self.get_form()
+            form.issuance_id.data = kwargs.get("issuance_id", 0)
+        return render_template(self.template_name, form=form, orders=get_orders())
 
 
-def delete_issuance_view(issuance_id: int):
-    if delete_issuance(id=issuance_id):
-        return redirect(url_for('issuances'))
-    return get_tempale_error_on_mark_for_deleting()
+class AttachmentIssuanceListView(TemplateView):
+    template_name = 'issuance_attachment_list.html'
+
+    def get(self, *args, **kwargs):
+        issuance_id = kwargs.get("issuance_id", 0)
+        return render_template(self.template_name, attachments=get_attachments(issuance_id=issuance_id))
 
 
-def issuance_attachments_view(issuance_id: int):
-    issuance = get_issuance_by_id(id=issuance_id)
-    return render_template('issuance_attachment_list.html', attachments=issuance.attachments)
+class AttachmentIssuanceDeleteView(TemplateView):
 
-
-def issuance_attachment_view(attachment_id: int):
-    attachment = get_attachment_by_id(id=attachment_id)
-    form = AttachmentForm(obj=attachment)
-    orders = get_orders()
-    return render_template('issuance_attachment_item.html', form=form, orders=orders)
-
-
-def issuance_new_attachment_view(issuance_id: int):
-    form = AttachmentForm()
-    form.issuance_id.data = issuance_id
-    orders = get_orders()
-    return render_template('issuance_attachment_item.html', form=form, orders=orders)
-
-
-def issuance_save_attachment_view():
-    form = AttachmentForm()
-    if form.validate_on_submit():
-        if save_attachment(form):
-            return redirect(url_for('show_issuance', issuance_id=form.issuance_id.data))
-        return render_template("crud_error.html", content='error on create or update storage info')
-    return render_template("crud_error.html", content=f"error on validation {form.errors}")
-
-
-def issuance_delete_attachment_view(attachment_id: int):
-    attachment = get_attachment_by_id(id=attachment_id)
-    issuance_id = attachment.issuance_id
-    if delete_attachment(id=attachment_id):
-        return redirect(url_for('show_issuance', issuance_id=issuance_id))
-    return render_template("crud_error.html", content='error on mark attachment for deleting')
+    def get(self, *args, **kwargs):
+        id = kwargs.get("id", 0)
+        attachment = get_attachment_by_id(id=id)
+        issuance_id = attachment.issuance_id
+        if delete_attachment(id=id):
+            return redirect(url_for('issuance.show_issuance', id=issuance_id))
+        return render_template("crud_error.html", content='error on mark point for deleting')

@@ -13,7 +13,7 @@ web-tracoma/issuance
     {% else %}
     <h1>New issuance</h1>
     {% endif %}
-    <form action="{{ url_for('save_issuance') }}" method="post">
+    <form action="{{ url_for('issuance.save_issuance') }}" method="post">
         {{ form.csrf_token }}
         <div class="row">
 
@@ -40,8 +40,18 @@ web-tracoma/issuance
 
 
 
-            <div class="input-group input-group-sm mb-3">
-                {{ form.submit }}
+            <div class="row">
+                
+                <div class="col-1">
+                    <div class="input-group input-group-sm mb-3">
+                        {{ form.submit }}
+                    </div>
+                </div>
+
+                <div class="col-1">
+                    <a class="btn btn-primary btn-sm" href="{{ url_for('issuance.issuances') }}" role="button">Close</a>
+                </div>
+
             </div>
 
         </div>

@@ -31,7 +31,7 @@ class OrderDetailView(BaseView):
 
     def pre_save(self, object: object) -> None:
         object.distance = fetch_distance_between_cities(point_a=object.point_from.location,
-                                                        point_b=object.point_to.location)        
+                                                        point_b=object.point_to.location)
 
 
 class OrderListView(TemplateView):

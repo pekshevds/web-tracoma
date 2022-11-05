@@ -155,6 +155,12 @@ web-tracoma/order
             </div>
 
             <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.cost.label() }}</span>
+                <input type="number" readonly class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm" name="cost" value="{{ form.cost.data }}">
+            </div>
+
+            <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.declared.label() }}</span>
                 <input type="number" step="0.01" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-sm" name="declared" value="{{ form.declared.data }}">

@@ -19,6 +19,8 @@ def create_app():
 
     app.config['CSRF_ENABLED'] = True
     app.config['SECRET_KEY'] = "test_secret_key"
+    app.config['COST_KG_PER_KM'] = 3
+    app.config['COST_M3_PER_KM'] = 25
     db.init_app(app)
 
     migrate = Migrate(app, db, render_as_batch=True)

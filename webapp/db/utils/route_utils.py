@@ -72,7 +72,7 @@ def routes_update() -> bool:
             route = get_route_by_points(point_a.id, point_b.id)
             if not route:
                 route = Route(point_a_id=point_a.id, point_b_id=point_b.id)
-                route.distance = fetch_distance_between_citites(point_a.location, point_b.location)
+                route.distance = fetch_distance_between_cities(point_a.location, point_b.location)
                 new_routes.append(route)
     db.session.bulk_save_objects(new_routes)
     try:

@@ -19,6 +19,7 @@ class Order(db.Model, Directory):
     shipper_contact_id = db.Column(db.Integer, db.ForeignKey('storage.id'), nullable=True)
     shipper_phone = db.Column(db.String(255))
     distance = db.Column(db.Integer, nullable=True, default=0)
+    cost = db.Column(db.Float, default=.0)
 
     attachments = db.relationship('Attachment', cascade='all, delete', lazy=True, backref="order")
 

@@ -1,16 +1,18 @@
 from flask import render_template, redirect, url_for
 
+from webapp.db.storage.models import Storage
 from webapp.db.storage.fetchers import get_storages, get_storages_by_kind
 from webapp.db.storage.changers import delete_storage
 from webapp.views.storage.forms import StorageForm
-from webapp.views.common import BaseView
+from webapp.views.common import DetailView, ListView, DeleteView
 from flask_views.base import TemplateView
 
 
-class StorageDetailView(BaseView):
+class StorageDetailView(DetailView):
     form_class = StorageForm
     template_name = 'storage_item.html'
     self_url_name = 'storage.show_storage'
+    model = Storage
 
     def get(self, *args, **kwargs):
         object = super().get_object_by_id(id=kwargs.get("id", 0))
@@ -22,21 +24,19 @@ class StorageDetailView(BaseView):
         return render_template(self.template_name, form=form)
 
 
-class StorageListView(TemplateView):
+class StorageListView(ListView):
     template_name = 'storage_list.html'
 
-    def get(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
+
+        kwargs['storages'] = get_storages()
         storage_kind = kwargs.get("storage_kind", 0)
         if storage_kind:
-            return render_template(self.template_name, storages=get_storages_by_kind(kind=storage_kind))
-        return render_template(self.template_name, storages=get_storages())
+            kwargs['storages'] = get_storages_by_kind(kind=storage_kind)
+        return kwargs
 
-
-class StorageDeleteView(TemplateView):
+class StorageDeleteView(DeleteView):
     success_url_name = 'storage.storages'
 
-    def get(self, *args, **kwargs):
-        id = kwargs.get("id", 0)
-        if delete_storage(id=id):
-            return redirect(url_for(self.success_url_name))
-        return render_template("crud_error.html", content='error on mark point for deleting')
+    def delete(self, id: int):
+        return delete_storage(id)
